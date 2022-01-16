@@ -7,10 +7,10 @@
     <title>Show Blog</title>
 </head>
 <body>
-    {{ blog.title }}
+    <p>{{ blog.title }}</p>
     
     {% for tag in tags %}
-        {{ tag.name }}
+        <p>{{ tag.name }}</p>
     {% endfor %}
 </body>
 </html>

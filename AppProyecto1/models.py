@@ -8,8 +8,8 @@ class Blog(models.Model):
     title=models.CharField(max_length=40)
     subtitle=models.CharField(max_length=40)
     body=models.TextField()
-    tags=models.ManyToManyField(Tag)
+    tag=models.ManyToManyField(Tag) #Este many to many crea la tabla blog_tag en la base
 
 class Comment(models.Model):
     text=models.TextField()
-    Blog=models.ForeignKey(Blog,on_delete=models.CASCADE)
+    blog=models.ForeignKey(Blog,on_delete=models.CASCADE)
