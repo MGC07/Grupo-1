@@ -7,7 +7,10 @@
     <title>Comment</title>
 </head>
 <body>
-    {{ comment.text }}
-    {{ comment.post.title }}
+    <!-- El comment llamado aqui es el de la base de datos que nos trajimos con el get en views-->
+    <!-- Se llama a comment.blog que tiene el objeto blog, y de ese blog se llama al titulo-->
+    <p>{{ comment.blog.title }}</p>
+    <p>{{ comment.text }}</p>
+
 </body>
 </html>
