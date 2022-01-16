@@ -1,0 +1,30 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+    
+{% block contenidoQueCambia %}
+
+
+    {% if myBlogForm.errors %}
+
+    <p style="color: red;">Estan mal los datos, revisar</p>
+    
+    {% endif %}
+    
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <form action="/AppProyecto1/blogForm/" method="POST">{% csrf_token %}
+                <table>
+
+                    {{ myBlogForm.as_table }}
+
+                </table>
+
+                <input type="submit" value="Crear">
+
+            </form>
+        </div>
+    </div>
+</div>
+    
+    {% endblock contenidoQueCambia %}

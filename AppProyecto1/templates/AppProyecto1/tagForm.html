@@ -1,0 +1,29 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+    
+{% block contenidoQueCambia %}
+    {% if myTagForm.errors %}
+
+    <p style="color: red;">Estan mal los datos, revisar</p>
+    
+    {% endif %}
+    
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <form action="/AppProyecto1/tagForm/" method="POST">{% csrf_token %}
+
+                <table>
+
+                    {{ myTagForm.as_table }}
+
+                </table>
+
+                <input type="submit" value="Crear">
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock contenidoQueCambia %}
