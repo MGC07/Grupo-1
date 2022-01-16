@@ -7,6 +7,9 @@ urlpatterns = [
     path('blogs/',views.blogs, name='Blog'),
     path('comment/<id>',views.comment, name='Comment'),
     path('showBlog/<id>',views.showBlog, name='ShowBlog'),
+    
+    path("busquedaBlog/",views.busquedaBlog, name ="BusquedaBlog"),
+    path("buscar/",views.buscar, name ="Buscar"),
     path('blogForm/',views.blogForm, name='BlogForm'),
     path('tagForm/',views.tagForm, name='TagForm'),
     path('commentForm/',views.commentForm, name='CommentForm'),

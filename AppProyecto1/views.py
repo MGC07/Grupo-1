@@ -19,6 +19,19 @@ def showBlog(request,id):
                                             #El filter devuelve todos los elementos que cumplen la condicion blog__id = id
     return render(request, 'showBlog.html', {"blog":blog,"tags":tags})
 
+def busquedaBlog(request):
+      return render(request, "busquedaBlog.html")
+    
+def buscar (request):
+    if request.GET["titulo"]:
+            titulo = request.GET["titulo"] 
+            blogs= Blog.objects.filter(title=titulo)
+            return render(request,"busqueda.html", {"titulo":titulo,"blogs":blogs})
+    else:
+            respuesta= "No enviaste Datos"
+    return HttpResponse(respuesta) 
+    
+
 def blogForm(request):
     if(request.method == "POST"):
         myBlogForm = BlogForm(request.POST)
