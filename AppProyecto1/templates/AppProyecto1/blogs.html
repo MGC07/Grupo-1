@@ -1,0 +1,34 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+
+
+
+
+{% block contenidoQueCambia %}
+{% for blog in blogs %}    
+    
+
+
+
+    <div class="row">
+        <div class="col-lg-3">
+
+            <div class="card mb-4">
+                <!-- <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a> -->
+                <a href="#!"><img class="card-img-top" src="https://res.cloudinary.com/hdsqazxtw/image/upload/v1600707758/coderhouse-logo.png" alt="..." /></a>
+
+                <div class="card-body">
+                    <!-- <div class="small text-muted">January 1, 2021</div> -->
+                    <div class="small text-muted">Post subtitle: {{ post.subtitle }}</div>
+                    <h2 class="card-title h4">Post Title: {{ blog.title }}</h2>
+                    <p class="card-text">Post body: {{ blog.body }}</p>
+                    <a class="btn btn-primary" href="#!">Leer más →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endfor %}
+
+{% endblock contenidoQueCambia %}
