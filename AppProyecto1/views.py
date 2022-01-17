@@ -36,7 +36,8 @@ def busquedaBlog(request):
 def buscar (request):
     if request.GET["titulo"]:
             titulo = request.GET["titulo"] 
-            blogs= Blog.objects.filter(title=titulo)
+            # blogs= Blog.objects.filter(title=titulo)          # Original
+            blogs= Blog.objects.filter(title__icontains=titulo) # Se modifica para buscar resultados "que contengan a"
             return render(request,"AppProyecto1/busqueda.html", {"titulo":titulo,"blogs":blogs})
     else:
             respuesta= "No enviaste Datos"
