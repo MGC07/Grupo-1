@@ -2,6 +2,11 @@
 {% load static %}
     
 {% block contenidoQueCambia %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">   
+
     <h1>{{ blog.title }}:</h>
     <h4>{{ blog.subtitle}} </h4>
     <p>{{ blog.body }}</p>
@@ -25,5 +30,9 @@
         <p>(No hay etiquetas para este blog)</p>
     
     {% endif %}
+
+        </div>
+    </div>
+</div>
     
 {% endblock contenidoQueCambia %}
