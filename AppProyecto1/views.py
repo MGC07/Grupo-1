@@ -20,10 +20,6 @@ def blogs(request):
     blogs=Blog.objects.all()
     return render(request, 'AppProyecto1/blogs.html',{"blogs":blogs})
 
-def comment(request,id):    #django se aviva que el <id> del url tiene que venir como parametro
-    comment=Comment.objects.get(id=id)  #id de la izquierda es el de la base, id de la derecha es el del url
-    return render(request, 'AppProyecto1/showBlog.html', {"blog": blog, "tags": tags,"comments":comments})
-
 def showBlog(request,id):
     blog=Blog.objects.get(id=id)    #El get devuelve un solo elemento.
     tags=Tag.objects.filter(blog__id=id)    #Aca django se aviva de que tiene que buscar en la tabla blog_tag y te devuelve todos los tags que estan relacionados con ese blog__id

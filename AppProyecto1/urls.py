@@ -10,8 +10,6 @@ urlpatterns = [
     path('index',views.index, name="index"),
     # Esta es para ver la planilla original completa
     path('blogs',views.blogs, name="Blog"),
-    
-    path('comment/<id>',views.comment, name="Comment"),
     path('showBlog/<id>',views.showBlog, name="ShowBlog"),
 
     path("busquedaBlog/",views.busquedaBlog, name ="BusquedaBlog"),
