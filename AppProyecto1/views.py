@@ -22,13 +22,14 @@ def blogs(request):
 
 def comment(request,id):    #django se aviva que el <id> del url tiene que venir como parametro
     comment=Comment.objects.get(id=id)  #id de la izquierda es el de la base, id de la derecha es el del url
-    return render(request, 'AppProyecto1/comment.html', {"comment":comment})
+    return render(request, 'AppProyecto1/showBlog.html', {"blog": blog, "tags": tags,"comments":comments})
 
 def showBlog(request,id):
     blog=Blog.objects.get(id=id)    #El get devuelve un solo elemento.
     tags=Tag.objects.filter(blog__id=id)    #Aca django se aviva de que tiene que buscar en la tabla blog_tag y te devuelve todos los tags que estan relacionados con ese blog__id
                                             #El filter devuelve todos los elementos que cumplen la condicion blog__id = id
-    return render(request, 'AppProyecto1/showBlog.html', {"blog":blog,"tags":tags})
+    comments=Comment.objects.filter(blog__id=id)
+    return render(request, 'AppProyecto1/showBlog.html', {"blog":blog,"tags":tags,"comments":comments})
 
 def busquedaBlog(request):
     return render(request, "AppProyecto1/busquedaBlog.html")

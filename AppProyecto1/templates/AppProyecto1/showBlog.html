@@ -1,16 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Blog</title>
-</head>
-<body>
-    <p>{{ blog.title }}</p>
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
     
-    {% for tag in tags %}
-        <p>{{ tag.name }}</p>
-    {% endfor %}
-</body>
-</html>
+{% block contenidoQueCambia %}
+    <h1>{{ blog.title }}:</h>
+    <h4>{{ blog.subtitle}} </h4>
+    <p>{{ blog.body }}</p>
+
+    <p><b>Comentarios del blog:</b></p>
+    {% if comments %}
+        {% for comment in comments %}
+            {{ comment.text}}<br>
+        {% endfor %}
+    {% else %}
+        <p>(No hay comentarios para este blog)</p>
+        
+    {% endif %}
+
+    <p><b>Etiquetas del blog:</b></p>
+    {% if tags %}    
+        {% for tag in tags %}
+            {{ tag.name}}<br>
+        {% endfor %}
+    {% else %}
+        <p>(No hay etiquetas para este blog)</p>
+    
+    {% endif %}
+    
+{% endblock contenidoQueCambia %}

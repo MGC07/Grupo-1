@@ -4,7 +4,7 @@
 {% block contenidoQueCambia %}
     <p>Contenido particular de Blogs</p>
 
-    {% for blog in blogs %}    
+{% for blog in blogs %}  
     
 
 
@@ -20,8 +20,9 @@
                         <!-- <div class="small text-muted">January 1, 2021</div> -->
                         <h2 class="card-title h4">Título: {{ blog.title }}</h2>
                         <div class="small text-muted">Subtítulo: {{ blog.subtitle }}</div>
-                        <p class="card-text">Body: {{ blog.body }}</p>
-                        <!-- <a class="btn btn-primary" href="#!">Leer más →</a> -->
+                        <!-- <p class="card-text">Body: {{ blog.body }}</p> -->
+                        <a class="btn btn-primary" href="{% url 'ShowBlog' blog.id %}">Leer más →</a>
+
                     </div>
                 </div>
             </div>
