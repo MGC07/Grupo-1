@@ -12,9 +12,6 @@ def padre(request):
 def index(request):
     return render(request, 'AppProyecto1/index (plantilla vacía).html')
 
-# def blogs(request):
-#     blogs=Blog.objects.all()
-#     return render(request, 'AppProyecto1/blogs.html', {"blogs":blogs})
 
 def blogs(request):
     blogs=Blog.objects.all()
@@ -37,7 +34,6 @@ def busquedaBlog(request):
 def buscar (request):
     if request.GET["titulo"]:
             titulo = request.GET["titulo"] 
-            # blogs= Blog.objects.filter(title=titulo)          # Original
             blogs= Blog.objects.filter(title__icontains=titulo) # Se modifica para buscar resultados "que contengan a"
             return render(request,"AppProyecto1/busqueda.html", {"titulo":titulo,"blogs":blogs})
     else:
@@ -71,8 +67,6 @@ def tagForm(request):
             info = myTagForm.cleaned_data
             tag = Tag(name=info['name'])
             tag.save()
-            # blogs=Blog.objects.all()
-            # return render(request,'AppProyecto1/blogs.html',{"blogs":blogs})
             return render(request,'AppProyecto1/inicio.html')
     else:
         myTagForm = TagForm()
@@ -87,7 +81,6 @@ def commentForm(request):
             info = myCommentForm.cleaned_data
             comment = Comment(text=info['text'], blog=info['blog'])
             comment.save()
-            # return render(request,'AppProyecto1/comment.html',{"comment":comment})
             return render(request,'AppProyecto1/inicio.html')
     else:
         myCommentForm = CommentForm() #instancia de formulario
