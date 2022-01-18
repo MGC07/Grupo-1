@@ -71,8 +71,8 @@ def tagForm(request):
             info = myTagForm.cleaned_data
             tag = Tag(name=info['name'])
             tag.save()
-            blogs=Blog.objects.all()
-            return render(request,'AppProyecto1/blogs.html',{"blogs":blogs})
+            
+            return render(request,'AppProyecto1/inicio.html')
     else:
         myTagForm = TagForm()
     return render(request,"AppProyecto1/tagForm.html",{'myTagForm':myTagForm})
@@ -86,7 +86,7 @@ def commentForm(request):
             info = myCommentForm.cleaned_data
             comment = Comment(text=info['text'], blog=info['blog'])
             comment.save()
-            return render(request,'AppProyecto1/comment.html',{"comment":comment})
+            return render(request,'AppProyecto1/inicio.html')
     else:
         myCommentForm = CommentForm() #instancia de formulario
     return render(request,"AppProyecto1/commentForm.html",{'myCommentForm':myCommentForm})
