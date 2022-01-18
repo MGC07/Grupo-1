@@ -7,7 +7,8 @@
     <title>Show Blog</title>
 </head>
 <body>
-    <p>{{ blog.title }}</p>
+    <p>Titulo blog: {{ blog.title }}</p>
+    <p>Subtitulo blog: {{ blog.subtitle }}</p>
     
     {% for tag in tags %}
         <p>{{ tag.name }}</p>

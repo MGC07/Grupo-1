@@ -1,0 +1,19 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+
+            <form action="/AppProyecto1/buscar/" method="GET">{% csrf_token %}
+                <input type="text" name="titulo" id="titulo"> 
+                <input type="submit" value="Buscar">
+            </form>
+
+        </div>
+    </div>
+</div>
+    
+{% endblock contenidoQueCambia %}
