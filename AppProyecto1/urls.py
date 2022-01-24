@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 from AppProyecto1 import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('',views.inicio,name="Inicio"),
@@ -20,4 +21,8 @@ urlpatterns = [
     path('blogForm/',views.blogForm, name="BlogForm"),
     path('tagForm/',views.tagForm, name="TagForm"),
     path('commentForm/',views.commentForm, name="CommentForm"),
+
+    path('login/', views.login_request, name='Login'),
+    path('register/', views.register, name='Register'),
+    path('logout/', LogoutView.as_view(template_name='AppProyecto1/logout.html'), name='Logout'),
 ]

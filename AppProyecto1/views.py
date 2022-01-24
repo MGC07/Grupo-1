@@ -1,8 +1,11 @@
-from turtle import title
 from django.shortcuts import render, HttpResponse
 from AppProyecto1.models import Blog, Tag, Comment
-from AppProyecto1.forms import BlogForm, TagForm, CommentForm
+from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def inicio(request):
     return render(request, 'AppProyecto1/inicio.html')
 
@@ -85,3 +88,34 @@ def commentForm(request):
     else:
         myCommentForm = CommentForm() #instancia de formulario
     return render(request,"AppProyecto1/commentForm.html",{'myCommentForm':myCommentForm})
+
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request,data = request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request,user)
+                return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}"})
+            else:
+                return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, datos incorrectos"})
+        else:
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, formulario erroneo"})
+    form = AuthenticationForm()
+    return render(request,"AppProyecto1/login.html",{'form':form})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado"})
+
+    else:
+        form = UserRegisterForm()
+    return render(request,"AppProyecto1/registro.html",{"form":form})               
