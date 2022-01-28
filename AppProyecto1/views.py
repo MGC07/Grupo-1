@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from AppProyecto1.models import Blog, Tag, Comment
-from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -118,4 +118,26 @@ def register(request):
 
     else:
         form = UserRegisterForm()
-    return render(request,"AppProyecto1/registro.html",{"form":form})               
+    return render(request,"AppProyecto1/registro.html",{"form":form})
+
+@login_required
+def editarPerfil(request):
+    user = request.user
+
+    if request.method == 'POST':
+        miFormulario = UserEditForm(request.POST)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            user.email = informacion['email']
+            user.password1 = informacion['password1']
+            user.password2 = informacion['password2']
+            user.first_name = informacion['first_name']
+            user.last_name = informacion['last_name']
+            user.save()
+            return render(request,"AppProyecto1/inicio.html")
+
+    else:
+        miFormulario = UserEditForm(initial={'email':user.email})
+
+    return render(request,"AppProyecto1/editarPerfil.html",{"miFormulario":miFormulario, "user":user})
