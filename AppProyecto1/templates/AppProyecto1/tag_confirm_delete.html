@@ -1,0 +1,8 @@
+<form method="Post">{% csrf_token %}
+    ¿ Estas seguro que deseas borrar el siguiente Tag "{{object}}"?
+    <input type="submit" value="Borrar"/>
+    <p>
+        <a href="{% url 'Listt' %}">Regresar</a>
+    </p>
+
+</form>

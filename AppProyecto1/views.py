@@ -2,6 +2,10 @@ from turtle import title
 from django.shortcuts import render, HttpResponse
 from AppProyecto1.models import Blog, Tag, Comment
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm
+from django.views.generic.edit import UpdateView, CreateView,DeleteView
+from django.views.generic.detail import DetailView
+from django.views.generic import ListView
+
 
 def inicio(request):
     return render(request, 'AppProyecto1/inicio.html')
@@ -85,3 +89,75 @@ def commentForm(request):
     else:
         myCommentForm = CommentForm() #instancia de formulario
     return render(request,"AppProyecto1/commentForm.html",{'myCommentForm':myCommentForm})
+
+class BlogLista(ListView):
+    model = Blog
+    template_name = "AppProyecto1/blog_lista.html"
+
+class BlogDetalle (DetailView):
+    model = Blog
+    template_name = "AppProyecto1/blog_detalle.html"
+
+class BlogCreate (CreateView):
+    model= Blog
+    success_url= "/AppProyecto1/blog_form/"
+    fields = ["title","subtitle","body","tag"]
+
+class  BlogUpdate(UpdateView):
+    model= Blog
+    success_url = "/AppProyecto1/blog_lista/"
+    fields = ["title","subtitle","body","tag"]
+        
+class BlogDelet(DeleteView):
+    model= Blog
+    success_url = "/AppProyecto1/blog_lista/"
+
+
+        
+class TagLista(ListView):
+    model= Tag
+    template_name ="AppProyecto1/tag_lista.html"
+
+class TagDetalle (DetailView):
+    model = Tag
+    template_name ="AppProyecto1/tag_detalle.html"
+
+class TagCreate (CreateView):
+    model= Tag
+    success_url="/AppProyecto1/tag_form/"
+    fields = ["name"]
+
+class  TagUpdate(UpdateView):
+    model= Tag
+    success_url ="/AppProyecto1/tag_lista/"
+    fields = ["name"]
+        
+class TagDelet(DeleteView):
+    model= Tag
+    success_url ="/AppProyecto1/tag_lista/"
+
+
+class CommentLista(ListView):
+    model = Comment
+    template_name = "AppProyecto1/comment_lista.html"
+
+class CommentDetalle(DetailView):
+    model = Comment
+    template_name ="AppProyecto1/comment_detalle.html"
+
+
+class CommentCreate(CreateView):
+    model = Comment
+    success_url = "/AppProyecto1/comment_form.html/"
+    fields=["text","blog"]
+
+
+class CommentUpdate(UpdateView):
+    model = Comment
+    success_url = "/AppProyecto1/comment_lista/"
+    fields=["text","blog"]
+
+
+class CommentDelet(DeleteView):
+    model = Comment
+    success_url = "/AppProyecto1/comment_lista/"

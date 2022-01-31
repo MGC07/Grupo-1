@@ -1,0 +1,13 @@
+<form method="post">{% csrf_token %}
+    ¿Estás seguro que deseas borrar el comment "{{ object }}"?
+    <input type="submit" value="Borrar" />
+    <p> 
+        <a href= "{% url 'Listc' %}">Regresar</a>
+    </p>
+
+</form>
+
+    
+
+
+    
