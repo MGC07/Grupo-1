@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Tag(models.Model):
@@ -17,3 +18,9 @@ class Blog(models.Model):
 class Comment(models.Model):
     text=models.TextField()
     blog=models.ForeignKey(Blog,on_delete=models.CASCADE)
+
+class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #el casacade hace q si se borra un usuario, en consecuencia se borre el avatar
+    imagen = models.ImageField(upload_to='avatares', null=True, blank=True) #se guarda en la carpeta media, las imagenes cargadas
+    def __str__(self):
+        return f"Avatar de: {self.user.username}"

@@ -1,0 +1,11 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
+
+    <h3>Cargar Avatar</h3>
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {{ myAvatarForm.as_p }}
+        <input type="submit" value="Actualizar">
+    </form>
+
+{% endblock contenidoQueCambia %}

@@ -1,13 +1,17 @@
 from django.shortcuts import render, HttpResponse
-from AppProyecto1.models import Blog, Tag, Comment
-from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm
+from AppProyecto1.models import Avatar, Blog, Tag, Comment
+from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 @login_required
 def inicio(request):
-    return render(request, 'AppProyecto1/inicio.html')
+
+    avatares = Avatar.objects.filter(user=request.user.id) #le cargamos al inicio la imagen del avatar del usuario logeado
+
+    return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url})
 
 def padre(request):
     return render(request, 'AppProyecto1/padre.html')
@@ -100,7 +104,8 @@ def login_request(request):
 
             if user is not None:
                 login(request,user)
-                return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}"})
+                avatares = Avatar.objects.filter(user=request.user.id)
+                return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}","url":avatares[0].imagen.url})
             else:
                 return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, datos incorrectos"})
         else:
@@ -135,9 +140,24 @@ def editarPerfil(request):
             user.first_name = informacion['first_name']
             user.last_name = informacion['last_name']
             user.save()
-            return render(request,"AppProyecto1/inicio.html")
+            avatares = Avatar.objects.filter(user=request.user.id)
+            return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
 
     else:
         miFormulario = UserEditForm(initial={'email':user.email})
 
     return render(request,"AppProyecto1/editarPerfil.html",{"miFormulario":miFormulario, "user":user})
+
+@login_required
+def avatarForm(request):
+    if(request.method == "POST"):
+        myAvatarForm = AvatarForm(request.POST, request.FILES)
+
+        if myAvatarForm.is_valid():
+            user=User.objects.get(username=request.user)
+            avatar=Avatar(user=user, imagen=myAvatarForm.cleaned_data['imagen'])
+            avatar.save()
+            return render(request,'AppProyecto1/inicio.html',{"url":avatar.imagen.url})
+    else:
+        myAvatarForm = AvatarForm()
+    return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
