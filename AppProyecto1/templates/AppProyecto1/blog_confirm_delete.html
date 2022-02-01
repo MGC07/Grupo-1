@@ -1,0 +1,8 @@
+<form method="Post">{% csrf_token %}
+    ¿ Estas seguro que deseas borrar el siguiente Blog "{{object}}"?
+    <input type="submit" value="Borrar"/>
+    <p>
+        <a href="{% url 'List' %}">Regresar</a>
+    </p>
+
+</form>
