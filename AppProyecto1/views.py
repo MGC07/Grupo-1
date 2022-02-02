@@ -2,7 +2,7 @@
 # importación no ocupada
 
 from django.shortcuts import render, HttpResponse
-from AppProyecto1.models import Avatar,Blog, Tag, Comment,
+from AppProyecto1.models import Avatar,Blog, Tag, Comment
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
 from django.views.generic.detail import DetailView
@@ -13,12 +13,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+
 @login_required
-
-
 def inicio(request):
     avatares = Avatar.objects.filter(user=request.user.id) #le cargamos al inicio la imagen del avatar del usuario logeado
-
     return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url})
 
 def padre(request):
