@@ -30,12 +30,4 @@ urlpatterns = [
     path('AppProyecto1/', include('AppProyecto1.urls')),
 ]
 
-<<<<<<< HEAD
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
-# Inicio Integración desde ram_flor_2
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# Fin Integración desde ram_flor_2
->>>>>>> main
