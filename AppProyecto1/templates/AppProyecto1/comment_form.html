@@ -1,11 +1,14 @@
-
-<form method="POST">{% csrf_token %}
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
+<form action="{% url 'CommentNew' blog %}" method="POST">{% csrf_token %}
     
     <table>
-        {{ form.as_p }}
+        {{ commentForm.as_table }}
     </table>
     
 
     <input type="submit" value="Crear">
 
 </form>
+{% endblock contenidoQueCambia %}

@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tags</title>
-</head>
-<body>
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
 
 <h1>Esta es la lista de Tag Publicados</h1>
 
@@ -15,11 +9,9 @@
     {% for tag in object_list %}
     
         <li>        
-            <p>Nombre: {{tag.name}}</p> 
+            <p>{{tag.name}}</p> 
             <p>    
-                <a href="{% url 'Detailt' tag.id %}">Ver</a>|       
-                <a href="{% url 'Editt' tag.id %}">Editar</a>|
-                <a href="{% url 'Deletet' tag.id %}">Borrar</a>
+                <a href="{% url 'TagDelete' tag.id %}">Borrar</a>
             </p> 
         </li>
     {% endfor %}
@@ -27,8 +19,8 @@
 </ul>
 
 
-<a href="{% url 'Newt' %}">Nuevo</a>
+    <a href="{% url 'TagNew' %}">Crear Tag</a>
 
-</body>
 
-</html>
+
+{% endblock contenidoQueCambia %}

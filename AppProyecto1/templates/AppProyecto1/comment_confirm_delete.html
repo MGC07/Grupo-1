@@ -1,13 +1,12 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
 <form method="post">{% csrf_token %}
     ¿Estás seguro que deseas borrar el comment "{{ object }}"?
     <input type="submit" value="Borrar" />
     <p> 
-        <a href= "{% url 'Listc' %}">Regresar</a>
+        <a href= "{% url 'BlogList' %}">Regresar</a>
     </p>
 
 </form>
-
-    
-
-
-    
+{% endblock contenidoQueCambia %}

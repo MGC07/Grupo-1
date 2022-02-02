@@ -1,25 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tags</title>
-</head>
-<body>
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
 
 <h1>Esta es la lista de Comentarios Publicados</h1>
 
 <ul>
 
-    {% for comment in object_list %}
+    {% for comment in comments %}
     
         <li>        
-            <p>Nombre: {{comment.text}}</p> 
+            <p>{{comment.text}}</p> 
             <p>    
-                <a href="{% url 'Detailc' comment.id %}">Ver</a>|       
-                <a href="{% url 'Editc' comment.id %}">Editar</a>|
-                <a href="{% url 'Deletec' comment.id %}">Borrar</a>
+                <a href="{% url 'CommentDelete' comment.id %}">Borrar</a>
             </p> 
         </li>
     {% endfor %}
@@ -27,8 +19,6 @@
 </ul>
 
 
-<a href="{% url 'Newc' %}">Nuevo</a>
+<a href="{% url 'CommentNew' blog %}">Nuevo</a>
 
-</body>
-
-</html>
+{% endblock contenidoQueCambia %}

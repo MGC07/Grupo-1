@@ -14,7 +14,6 @@ class TagForm(forms.Form):
 
 class CommentForm(forms.Form):
     text=forms.CharField(widget=forms.Textarea)
-    blog=forms.ModelChoiceField(queryset=Blog.objects.all())
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()

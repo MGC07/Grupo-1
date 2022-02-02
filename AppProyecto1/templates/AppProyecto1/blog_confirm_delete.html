@@ -1,8 +1,12 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
 <form method="Post">{% csrf_token %}
     ¿ Estas seguro que deseas borrar el siguiente Blog "{{object}}"?
     <input type="submit" value="Borrar"/>
     <p>
-        <a href="{% url 'List' %}">Regresar</a>
+        <a href="{% url 'BlogList' %}">Regresar</a>
     </p>
 
 </form>
+{% endblock contenidoQueCambia %}

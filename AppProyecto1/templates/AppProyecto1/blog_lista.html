@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Blogs</title>
-</head>
-<body>
-
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
 <h1>Esta es la lista de Blog Publicados</h1>
 
 <ul>
@@ -17,9 +10,9 @@
         <li>        
             <p>Nombre: {{blog.title}}</p> 
             <p>    
-                <a href="{% url 'Detail' blog.id %}">Ver</a>|       
-                <a href="{% url 'Edit' blog.id %}">Editar</a>|
-                <a href="{% url 'Delete' blog.id %}">Borrar</a>
+                <a href="{% url 'BlogDetail' blog.id %}">Ver</a>|       
+                <a href="{% url 'BlogEdit' blog.id %}">Editar</a>|
+                <a href="{% url 'BlogDelete' blog.id %}">Borrar</a>
             </p> 
         </li>
     {% endfor %}
@@ -27,8 +20,6 @@
 </ul>
 
 
-<a href="{% url 'New' %}">Nuevo</a>
+<a href="{% url 'BlogNew' %}">Crear Blog</a>
 
-</body>
-
-</html>
+{% endblock contenidoQueCambia %}

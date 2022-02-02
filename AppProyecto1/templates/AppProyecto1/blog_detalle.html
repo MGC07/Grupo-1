@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del Blog </title>
-</head>
-<body>
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
+
     <p>Nombre del Blog : <i>{{blog.title}}</i></p>
     <p>Subtitulo : <i>{{blog.subtitle}}</i> </p>
+    <p>Cuerpo : <i>{{blog.body}}</i> </p>
+    <p> tags </p>
+    {% for tag in blog.tag.all %}
+        <p>{{tag.name }}</p>
+    {% endfor %}
     <p>
-        <a href="{% url 'List' %}">Regresar</a>
+        <a href="{% url 'CommentList' blog.id %}">Comentarios</a>
+        <a href="{% url 'BlogList' %}">Regresar</a>
     </p>
-    
-</body>
-</html>
+{% endblock contenidoQueCambia %}
