@@ -18,9 +18,24 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+# Inicio Integración desde ram_flor_2
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+# Fin Integración desde ram_flor_2
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('AppProyecto1/', include('AppProyecto1.urls')),
 ]
 
+<<<<<<< HEAD
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+# Inicio Integración desde ram_flor_2
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Fin Integración desde ram_flor_2
+>>>>>>> main
