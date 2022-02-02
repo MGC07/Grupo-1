@@ -1,14 +1,25 @@
-from turtle import title
+# from turtle import title
+# importación no ocupada
+
 from django.shortcuts import render, HttpResponse
-from AppProyecto1.models import Blog, Tag, Comment,
-from AppProyecto1.forms import BlogForm, TagForm, CommentForm
+from AppProyecto1.models import Avatar,Blog, Tag, Comment,
+from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+
+@login_required
+
 
 def inicio(request):
-    return render(request, 'AppProyecto1/inicio.html')
+    avatares = Avatar.objects.filter(user=request.user.id) #le cargamos al inicio la imagen del avatar del usuario logeado
+
+    return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url})
 
 def padre(request):
     return render(request, 'AppProyecto1/padre.html')
@@ -89,6 +100,79 @@ def commentForm(request):
     else:
         myCommentForm = CommentForm() #instancia de formulario
     return render(request,"AppProyecto1/commentForm.html",{'myCommentForm':myCommentForm})
+
+# Inicio Integración desde rama_flor_2
+
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request,data = request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request,user)
+                avatares = Avatar.objects.filter(user=request.user.id)
+                return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}","url":avatares[0].imagen.url})
+            else:
+                return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, datos incorrectos"})
+        else:
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, formulario erroneo"})
+    form = AuthenticationForm()
+    return render(request,"AppProyecto1/login.html",{'form':form})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado"})
+
+    else:
+        form = UserRegisterForm()
+    return render(request,"AppProyecto1/registro.html",{"form":form})
+
+@login_required
+def editarPerfil(request):
+    user = request.user
+
+    if request.method == 'POST':
+        miFormulario = UserEditForm(request.POST)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            user.email = informacion['email']
+            user.password1 = informacion['password1']
+            user.password2 = informacion['password2']
+            user.first_name = informacion['first_name']
+            user.last_name = informacion['last_name']
+            user.save()
+            avatares = Avatar.objects.filter(user=request.user.id)
+            return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
+
+    else:
+        miFormulario = UserEditForm(initial={'email':user.email})
+
+    return render(request,"AppProyecto1/editarPerfil.html",{"miFormulario":miFormulario, "user":user})
+
+@login_required
+def avatarForm(request):
+    if(request.method == "POST"):
+        myAvatarForm = AvatarForm(request.POST, request.FILES)
+
+        if myAvatarForm.is_valid():
+            user=User.objects.get(username=request.user)
+            avatar=Avatar(user=user, imagen=myAvatarForm.cleaned_data['imagen'])
+            avatar.save()
+            return render(request,'AppProyecto1/inicio.html',{"url":avatar.imagen.url})
+    else:
+        myAvatarForm = AvatarForm()
+    return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
+
+# Fin Integración desde rama_flor_2
 
 class BlogLista(ListView):
     model = Blog
