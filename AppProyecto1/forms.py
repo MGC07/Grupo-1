@@ -40,8 +40,4 @@ class UserEditForm(UserCreationForm):
         help_texts = {k:"" for k in fields}
 
 class AvatarForm(forms.Form):
-<<<<<<< HEAD
     imagen=forms.ImageField()
-=======
-    imagen=forms.ImageField()
->>>>>>> main

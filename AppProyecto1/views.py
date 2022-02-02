@@ -1,38 +1,22 @@
-<<<<<<< HEAD
-from django.shortcuts import render, HttpResponse
-from AppProyecto1.models import Avatar, Blog, Tag, Comment
-from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
-=======
 # from turtle import title
 # importación no ocupada
 
 from django.shortcuts import render, HttpResponse
-from AppProyecto1.models import Avatar,Blog, Tag, Comment,
+from AppProyecto1.models import Avatar,Blog, Tag, Comment
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 
->>>>>>> main
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-=======
 
-@login_required
-
->>>>>>> main
 
 @login_required
 def inicio(request):
-<<<<<<< HEAD
-
-=======
->>>>>>> main
     avatares = Avatar.objects.filter(user=request.user.id) #le cargamos al inicio la imagen del avatar del usuario logeado
-
     return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url})
 
 def padre(request):
@@ -115,11 +99,8 @@ def commentForm(request):
         myCommentForm = CommentForm() #instancia de formulario
     return render(request,"AppProyecto1/commentForm.html",{'myCommentForm':myCommentForm})
 
-<<<<<<< HEAD
-=======
 # Inicio Integración desde rama_flor_2
 
->>>>>>> main
 def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request,data = request.POST)
@@ -187,9 +168,6 @@ def avatarForm(request):
             return render(request,'AppProyecto1/inicio.html',{"url":avatar.imagen.url})
     else:
         myAvatarForm = AvatarForm()
-<<<<<<< HEAD
-    return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
-=======
     return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
 
 # Fin Integración desde rama_flor_2
@@ -265,4 +243,3 @@ class CommentUpdate(UpdateView):
 class CommentDelet(DeleteView):
     model = Comment
     success_url = "/AppProyecto1/comment_lista/"
->>>>>>> main
