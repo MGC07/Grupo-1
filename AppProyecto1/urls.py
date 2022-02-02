@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
 from AppProyecto1 import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('',views.inicio,name="Inicio"),
@@ -33,12 +34,16 @@ urlpatterns = [
     path("editar_tag/<pk>/",views.TagUpdate.as_view(), name= 'Editt'),
     path("borrar_tag/<pk>/",views.TagDelet.as_view(), name= 'Deletet'),
 
-     
     path('comment_lista/', views.CommentLista.as_view(), name = 'Listc'),
     path('detalle/<pk>/', views.CommentDetalle.as_view(), name = 'Detailc'),
     path('nuevo/', views.CommentCreate.as_view(), name = 'Newc'),
     path('editar/<pk>/', views.CommentUpdate.as_view(), name = 'Editc'),
     path('borrar/<pk>/', views.CommentDelet.as_view(), name = 'Deletec'),
-    
 
+    path('login/', views.login_request, name='Login'),
+    path('register/', views.register, name='Register'),
+    path('logout/', LogoutView.as_view(template_name='AppProyecto1/logout.html'), name='Logout'),
+
+    path('editarPerfil/', views.editarPerfil, name="EditarPerfil"),
+    path('avatarForm/', views.avatarForm, name="AvatarForm"),
 ]

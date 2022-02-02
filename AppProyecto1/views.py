@@ -1,6 +1,6 @@
 from turtle import title
 from django.shortcuts import render, HttpResponse
-from AppProyecto1.models import Blog, Tag, Comment
+from AppProyecto1.models import Blog, Tag, Comment,
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
 from django.views.generic.detail import DetailView
