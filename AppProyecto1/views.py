@@ -104,7 +104,7 @@ class BlogDetalle (DetailView):
 
 class BlogCreate (CreateView):
     model= Blog
-    success_url= "/AppProyecto1/blog_form/"
+    success_url= "/AppProyecto1/blog_lista/"
     fields = ["title","subtitle","body","tag"]
 
 class BlogUpdate(UpdateView):
