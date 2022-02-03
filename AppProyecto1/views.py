@@ -20,7 +20,7 @@ def inicio(request):
     return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url})
 
 def index(request):
-    return render(request, 'AppProyecto1/index (plantilla vacía).html')
+    return render(request, 'AppProyecto1/index.html')
 # Inicio Integración desde rama_flor_2
 
 def login_request(request):
