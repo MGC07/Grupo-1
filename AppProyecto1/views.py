@@ -17,7 +17,10 @@ from django.contrib.auth.models import User
 @login_required
 def inicio(request):
     avatares = Avatar.objects.filter(user=request.user.id) #le cargamos al inicio la imagen del avatar del usuario logeado
-    return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url})
+    if avatares:
+        return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
+    else:
+        return render(request,"AppProyecto1/inicio.html")
 
 def index(request):
     return render(request, 'AppProyecto1/index (plantilla vacía).html')
@@ -35,7 +38,10 @@ def login_request(request):
             if user is not None:
                 login(request,user)
                 avatares = Avatar.objects.filter(user=request.user.id)
-                return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}","url":avatares[0].imagen.url})
+                if avatares:
+                    return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}","url":avatares[0].imagen.url})
+                else:
+                    return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}"})
             else:
                 return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, datos incorrectos"})
         else:
@@ -74,7 +80,7 @@ def editarPerfil(request):
             return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
 
     else:
-        miFormulario = UserEditForm(initial={'email':user.email})
+        miFormulario = UserEditForm(initial={'email':user.email,'first_name':user.first_name,'last_name':user.last_name})
 
     return render(request,"AppProyecto1/editarPerfil.html",{"miFormulario":miFormulario, "user":user})
 
@@ -85,6 +91,7 @@ def avatarForm(request):
 
         if myAvatarForm.is_valid():
             user=User.objects.get(username=request.user)
+            Avatar.objects.filter(user=user.id).delete()
             avatar=Avatar(user=user, imagen=myAvatarForm.cleaned_data['imagen'])
             avatar.save()
             return render(request,'AppProyecto1/inicio.html',{"url":avatar.imagen.url})
