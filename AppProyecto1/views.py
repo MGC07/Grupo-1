@@ -17,7 +17,8 @@ from django.contrib.auth.models import User
 @login_required
 def inicio(request):
     avatares = Avatar.objects.filter(user=request.user.id) #le cargamos al inicio la imagen del avatar del usuario logeado
-    return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url})
+    etiquetas = Tag.objects.all()
+    return render(request, 'AppProyecto1/inicio.html', {"url":avatares[0].imagen.url},{"tags":etiquetas})
 
 def index(request):
     return render(request, 'AppProyecto1/index.html')
@@ -116,7 +117,7 @@ class BlogDelete(DeleteView):
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
 
-
+# CRUD de tags:
         
 class TagLista(ListView):
     model= Tag
