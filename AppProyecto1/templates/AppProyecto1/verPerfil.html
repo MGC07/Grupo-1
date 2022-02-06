@@ -1,0 +1,17 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+<div>
+    <h2>Perfil de {{user.username}}</h2>
+    <p>Email: {{user.email}}</p>
+    <p>Nombre: {{user.first_name}}</p>
+    <p>Apellido: {{user.last_name}}</p>
+    <p>Email: {{user.email}}</p>
+    <img height="100px" src="{{avatar.imagen.url}}">
+</div>
+
+<a href="{% url 'EditarPerfil' %}">Editar Perfil</a>
+
+
+{% endblock contenidoQueCambia %}

@@ -62,6 +62,15 @@ def register(request):
     return render(request,"AppProyecto1/registro.html",{"form":form})
 
 @login_required
+def verPerfil(request):
+    user = request.user
+    avatar = Avatar.objects.filter(user=user.id)
+    if avatar:
+        return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
+    else:
+        return render(request,"AppProyecto1/verPerfil.html",{"user":user})
+
+@login_required
 def editarPerfil(request):
     user = request.user
 
@@ -76,8 +85,11 @@ def editarPerfil(request):
             user.first_name = informacion['first_name']
             user.last_name = informacion['last_name']
             user.save()
-            avatares = Avatar.objects.filter(user=request.user.id)
-            return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
+            avatar = Avatar.objects.filter(user=user.id)
+            if avatar:
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
+            else:
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user})
 
     else:
         miFormulario = UserEditForm(initial={'email':user.email,'first_name':user.first_name,'last_name':user.last_name})
@@ -94,7 +106,11 @@ def avatarForm(request):
             Avatar.objects.filter(user=user.id).delete()
             avatar=Avatar(user=user, imagen=myAvatarForm.cleaned_data['imagen'])
             avatar.save()
-            return render(request,'AppProyecto1/inicio.html',{"url":avatar.imagen.url})
+            avatar = Avatar.objects.filter(user=user.id)
+            if avatar:
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
+            else:
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user})
     else:
         myAvatarForm = AvatarForm()
     return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
