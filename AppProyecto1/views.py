@@ -92,27 +92,44 @@ def editarPerfil(request):
                 return render(request,"AppProyecto1/verPerfil.html",{"user":user})
 
     else:
-        miFormulario = UserEditForm(initial={'email':user.email,'first_name':user.first_name,'last_name':user.last_name})
+        miFormulario = UserEditForm(
+            initial={
+                'email':user.email,
+                'first_name':user.first_name,
+                'last_name':user.last_name
+                })
 
     return render(request,"AppProyecto1/editarPerfil.html",{"miFormulario":miFormulario, "user":user})
 
 @login_required
 def avatarForm(request):
+    user=User.objects.get(username=request.user)
+    avatar=Avatar.objects.filter(user=user.id)[0]
     if(request.method == "POST"):
         myAvatarForm = AvatarForm(request.POST, request.FILES)
 
         if myAvatarForm.is_valid():
-            user=User.objects.get(username=request.user)
-            Avatar.objects.filter(user=user.id).delete()
-            avatar=Avatar(user=user, imagen=myAvatarForm.cleaned_data['imagen'])
-            avatar.save()
-            avatar = Avatar.objects.filter(user=user.id)
+            informacion = myAvatarForm.cleaned_data
             if avatar:
-                return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
+                if informacion['imagen']:
+                    avatar.imagen=informacion['imagen']
+                avatar.descripcion=informacion['descripcion']
+                avatar.link=informacion['link']
             else:
-                return render(request,"AppProyecto1/verPerfil.html",{"user":user})
+                avatar=Avatar(
+                    user=user,
+                    imagen=informacion['imagen'],
+                    descripcion=informacion['descripcion'],
+                    link=informacion['link']
+                    )
+            avatar.save()
+            return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar})
     else:
-        myAvatarForm = AvatarForm()
+        myAvatarForm = AvatarForm(
+            initial={
+                'descripcion':avatar.descripcion,
+                'link':avatar.link
+                })
     return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
 
 # Fin Integración desde rama_flor_2
