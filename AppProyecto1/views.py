@@ -21,9 +21,6 @@ def inicio(request):
         return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
     else:
         return render(request,"AppProyecto1/inicio.html")
-
-def index(request):
-    return render(request, 'AppProyecto1/index (plantilla vacía).html')
 # Inicio Integración desde rama_flor_2
 
 def login_request(request):
@@ -53,7 +50,6 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
             form.save()
             return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado"})
 
@@ -161,6 +157,10 @@ class BlogDelete(DeleteView):
 class TagLista(ListView):
     model= Tag
     template_name ="AppProyecto1/tag_lista.html"
+
+def blogTagLista(request,tag):
+    blogs = Blog.objects.filter(tag=tag)
+    return render(request,"AppProyecto1/blog_lista.html",{'object_list':blogs})
 
 class TagCreate (CreateView):
     model= Tag

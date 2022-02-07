@@ -14,6 +14,7 @@ urlpatterns = [
     path("blog_borrar/<pk>/",views.BlogDelete.as_view(), name= 'BlogDelete'),
 
     path("tag_lista/",views.TagLista.as_view(), name= 'TagList'),
+    path("blogTagLista/<tag>", views.blogTagLista, name= 'BlogTagLista'),
     path("nuevo_tag/",views.TagCreate.as_view(), name= 'TagNew'),
     path("borrar_tag/<pk>/",views.TagDelete.as_view(), name= 'TagDelete'),
 

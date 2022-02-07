@@ -9,10 +9,8 @@
     {% for tag in object_list %}
     
         <li>        
-            <p>{{tag.name}}</p> 
-            <p>    
-                <a href="{% url 'TagDelete' tag.id %}">Borrar</a>
-            </p> 
+            <a href="{% url 'BlogTagLista' tag.id %}">{{tag.name}}</p>
+            <a href="{% url 'TagDelete' tag.id %}">borrar</a>
         </li>
     {% endfor %}
 

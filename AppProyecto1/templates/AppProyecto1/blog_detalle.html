@@ -7,7 +7,7 @@
     <p>Cuerpo : <i>{{blog.body}}</i> </p>
     <p> tags </p>
     {% for tag in blog.tag.all %}
-        <p>{{tag.name }}</p>
+        <a href="{% url 'BlogTagLista' tag.id %}">{{tag.name}}</p>
     {% endfor %}
     <p>
         <a href="{% url 'CommentList' blog.id %}">Comentarios</a>
