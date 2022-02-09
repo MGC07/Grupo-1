@@ -23,7 +23,7 @@ def inicio(request):
         return render(request,"AppProyecto1/inicio.html")
 
 def index(request):
-    return render(request, 'AppProyecto1/index (plantilla vacía).html')
+    return render(request, 'AppProyecto1/index.html')
 # Inicio Integración desde rama_flor_2
 
 def login_request(request):
@@ -123,7 +123,7 @@ class BlogDelete(DeleteView):
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
 
-
+# CRUD de tags:
         
 class TagLista(ListView):
     model= Tag

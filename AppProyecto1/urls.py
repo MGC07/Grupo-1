@@ -6,7 +6,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('',views.inicio,name="Inicio"),
-    # Esta es para ver la planilla original completa
+    path('index/',views.index, name='Index'), # Esta es para ver la planilla original completa
     path("blog_lista/",views.BlogLista.as_view(), name= 'BlogList'),
     path("detalle/<pk>/",views.BlogDetalle.as_view(), name= 'BlogDetail'),
     path("blog_nuevo/",views.BlogCreate.as_view(), name= 'BlogNew'),
