@@ -138,6 +138,8 @@ class TagDelete(DeleteView):
     model= Tag
     success_url ="/AppProyecto1/tag_lista/"
 
+def acercaDe(request):
+    return render(request, "AppProyecto1/about.html")
 
 def commentLista(request, blog):
     comments=Comment.objects.filter(blog=blog)
