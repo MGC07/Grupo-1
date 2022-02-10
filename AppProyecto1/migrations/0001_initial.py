@@ -2,6 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+import ckeditor.fields
+from django.utils import timezone
 
 
 class Migration(migrations.Migration):
@@ -13,21 +15,25 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Blog',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=40)),
-                ('subtitle', models.CharField(max_length=40)),
-                ('body', models.TextField()),
-            ],
-        ),
-        migrations.CreateModel(
             name='Tag',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=40)),
             ],
         ),
+
+        migrations.CreateModel(
+            name='Blog',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=40)),
+                ('subtitle', models.CharField(max_length=40)),
+                ('body', ckeditor.fields.RichTextField()),
+                
+                
+            ],
+        ),
+        
         migrations.CreateModel(
             name='Comment',
             fields=[

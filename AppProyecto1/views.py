@@ -112,12 +112,12 @@ class BlogDetalle (DetailView):
 class BlogCreate (CreateView):
     model= Blog
     success_url= "/AppProyecto1/blog_lista/"
-    fields = ["title","subtitle","body","tag"]
+    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion"]
 
 class BlogUpdate(UpdateView):
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
-    fields = ["title","subtitle","body","tag"]
+    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion"]
         
 class BlogDelete(DeleteView):
     model= Blog

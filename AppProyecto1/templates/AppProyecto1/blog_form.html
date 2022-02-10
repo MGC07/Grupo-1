@@ -1,10 +1,11 @@
 {% extends 'AppProyecto1/padre.html' %}
 {% load static %}
 {% block contenidoQueCambia %}
-    <form method="Post">{% csrf_token %}    
+    <form method="Post" enctype="multipart/form-data">{% csrf_token %}    
         <table>
             {{form.as_p}}
+            {{form.media}} 
         </table>
-        <input type="submit" value="Crear">
+        <input type="submit" value="Confirmar">
     </form>
 {% endblock contenidoQueCambia %}
