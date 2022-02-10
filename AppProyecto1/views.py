@@ -116,13 +116,15 @@ class BlogLista(ListView):
         return context
 
 class BlogDetalle (DetailView):
-    def get_context_data(self, **kwargs): # Función para invocar tags
-        context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        return context
     model = Blog
     template_name = "AppProyecto1/blog_detalle.html"
 
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super(BlogDetalle, self).get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        context['blogtags'] = Tag.objects.filter(blog=self.get_object())
+        context['blogcomments'] = Comment.objects.filter(blog=self.get_object())
+        return context
 class BlogCreate (CreateView):
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
