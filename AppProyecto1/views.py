@@ -142,6 +142,10 @@ class BlogUpdate(UpdateView):
     fields = ["title","subtitle","body","tag"]
         
 class BlogDelete(DeleteView):
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
 
@@ -150,6 +154,7 @@ class BlogDelete(DeleteView):
 class TagLista(ListView):
     model= Tag
     template_name ="AppProyecto1/tag_lista.html"
+    
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
@@ -157,7 +162,7 @@ class TagLista(ListView):
 
 class TagCreate (CreateView):
     model= Tag
-    success_url="/AppProyecto1/tag_form/"
+    success_url="/AppProyecto1/tag_lista/"
     fields = ["name"]
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
