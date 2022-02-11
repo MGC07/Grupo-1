@@ -79,9 +79,11 @@
                     <div class="card mb-4">
                         <div class="card-header">Búsqueda</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Ingresar una búsqueda..." aria-label="Ingresar una búsqueda..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                            <div class="input-group" method="GET" action="{% url 'BlogSearch' %}">
+                                    <form class="input-group" method="GET" action="{% url 'BlogSearch' %}" >
+                                        <input class="form-control" type="search" name="search" placeholder="Ingresar una búsqueda..."> 
+                                        <button class="btn btn-primary" type="submit">Buscar</button>
+                                    </form>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ urlpatterns = [
     path('index/',views.index, name='Index'), # Esta es para ver la planilla original completa
     path( 'about/', views.acercaDe, name="About"),
     path("blog_lista/",views.BlogLista.as_view(), name= 'BlogList'),
+    path("blog_busqueda/",views.BlogBusqueda.as_view(), name= 'BlogSearch'),
     path("detalle/<pk>/",views.BlogDetalle.as_view(), name= 'BlogDetail'),
     path("blog_nuevo/",views.BlogCreate.as_view(), name= 'BlogNew'),
     path("blog_editar/<pk>/",views.BlogUpdate.as_view(), name= 'BlogEdit'),

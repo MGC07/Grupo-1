@@ -116,6 +116,26 @@ class BlogLista(ListView):
         context['tags'] = Tag.objects.all()
         return context
 
+class BlogBusqueda(ListView):
+    model = Blog
+    template_name = "AppProyecto1/blog_lista.html"
+    context_object_name = 'all_search_results'
+
+    def get_queryset(self):
+        result = super(BlogBusqueda, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = Blog.objects.filter(title__contains=query)
+            result = postresult
+        else:
+            result = None
+        return result
+    
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
 class BlogDetalle (DetailView):
     model = Blog
     template_name = "AppProyecto1/blog_detalle.html"
