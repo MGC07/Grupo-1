@@ -119,7 +119,7 @@ class BlogLista(ListView):
 class BlogBusqueda(ListView):
     model = Blog
     template_name = "AppProyecto1/blog_lista.html"
-    context_object_name = 'all_search_results'
+    # context_object_name = 'all_search_results'
 
     def get_queryset(self):
         result = super(BlogBusqueda, self).get_queryset()

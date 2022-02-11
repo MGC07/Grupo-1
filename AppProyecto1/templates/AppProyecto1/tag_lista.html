@@ -18,12 +18,12 @@
                 <!-- </div> -->
 
                 <div class="card-body">
-                    <a class="btn btn-outline-info btn-xl mb-3" href="{% url 'BlogTagLista' tag.id %}">{{tag.name}}</a>
+                    <!-- <a class="btn btn-outline-info btn-xl mb-3" href="{% url 'BlogTagLista' tag.id %}">{{tag.name}}</a> -->
                     <p></p>
 
                     <div class="dropdown show">
-                        
-                        <a class="btn dropdown-toggle btn-sm btn-info" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</a>
+
+                        <a class="btn btn-outline-info btn-xl mb-3" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{tag.name}}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="{% url 'BlogTagLista' tag.id %}">Ver publicaciones con esta etiqueta</a>
                             <div class="dropdown-divider"></div>
