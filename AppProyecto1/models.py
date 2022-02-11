@@ -26,3 +26,9 @@ class Avatar(models.Model):
     imagen = models.ImageField(upload_to='avatares', null=True, blank=True) #se guarda en la carpeta media, las imagenes cargadas
     def __str__(self):
         return f"Avatar de: {self.user.username}"
+
+# class Mensajeria(models.Model):
+#     remitente = models.ForeignKey(User, related_name="remitente")
+#     receptor = models.ForeignKey(User, related_name="receptor")
+#     contenido = models.TextField()
+#     created_at = models.TimeField()

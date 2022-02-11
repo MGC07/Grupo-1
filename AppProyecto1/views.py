@@ -55,16 +55,17 @@ def login_request(request):
     return render(request,"AppProyecto1/login.html",{'form':form,"tags":tags})
 
 def register(request):
+    tags = Tag.objects.all()
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             form.save()
-            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado"})
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado","tags":tags})
 
     else:
         form = UserRegisterForm()
-    return render(request,"AppProyecto1/registro.html",{"form":form})
+    return render(request,"AppProyecto1/registro.html",{"form":form,"tags":tags})
 
 @login_required
 def editarPerfil(request):

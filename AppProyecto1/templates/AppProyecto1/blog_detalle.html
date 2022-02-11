@@ -35,12 +35,13 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             <p>Comentarios:</p>
-
-            {% for comment in blogcomments %}
-            <li class="list-group-item">
-            <p>-> {{comment.text}} <a href="{% url 'CommentDelete' comment.id %}"><i>(Borrar comentario)</i></a></p>
-            </li>
+            <ul class="list-group">
+                {% for comment in blogcomments %}
+                <li class="list-group-item">{{comment.text}}</li>
+                <a href="{% url 'CommentDelete' comment.id %}"><i>(Borrar comentario)</i></a>
+                </li><p></p>
             {% endfor %}
+            </ul>
 
             <li class="list-group-item">
                 <a href="{% url 'CommentNew' blog.id %}">Agregar un comentario</a>
