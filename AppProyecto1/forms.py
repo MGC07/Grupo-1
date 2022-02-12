@@ -46,4 +46,6 @@ class UserEditForm(UserCreationForm):
         help_texts = {k:"" for k in fields}
 
 class AvatarForm(forms.Form):
-    imagen=forms.ImageField()
+    imagen=forms.ImageField(required=False)
+    descripcion = forms.CharField(widget=forms.Textarea)
+    link = forms.URLField()

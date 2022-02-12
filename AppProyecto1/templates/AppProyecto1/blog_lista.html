@@ -1,25 +1,71 @@
 {% extends 'AppProyecto1/padre.html' %}
 {% load static %}
+{% load group %}
 {% block contenidoQueCambia %}
-<h1>Esta es la lista de Blog Publicados</h1>
 
-<ul>
+<div class="container">
+    <div class="row">
+        <a class="btn btn-info btn-lg btn-block mb-4" href="{% url 'BlogNew' %}">Crear un blog nuevo</a>
 
     {% for blog in object_list %}
     
         <li>        
             <p>Nombre: {{blog.title}}</p> 
             <p>    
-                <a href="{% url 'BlogDetail' blog.id %}">Ver</a>|       
-                <a href="{% url 'BlogEdit' blog.id %}">Editar</a>|
-                <a href="{% url 'BlogDelete' blog.id %}">Borrar</a>
+                <a href="{% url 'BlogDetail' blog.id %}">Ver</a> 
+                
+                {% if user|has_group:'Admin' %}
+                    <a href="{% url 'BlogEdit' blog.id %}">Editar</a>
+                    <a href="{% url 'BlogDelete' blog.id %}">Borrar</a>
+                {% endif %}
+                          
+                
             </p> 
         </li>
     {% endfor %}
 
-</ul>
 
+<!-- anterior: -->
+<!-- {% if object_list %}
+{% for blog in object_list %} -->
 
-<a href="{% url 'BlogNew' %}">Crear Blog</a>
+        <div class="col-6 mb-1">
+            
+            <div class="card mb-4">
+                <a href="{% url 'BlogDetail' blog.id %}"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                <div class="card-body">
+                        <!-- <div class="small text-muted">January 1, 2021</div> -->
+                        <!-- el anterior es para la la fecha (un primer texto en gris) -->
+                    <h2 class="card-title h4" href="{% url 'BlogDetail' blog.id %}">{{blog.title}}</h2>
+                    <p class="card-text italic">{{blog.subtitle}}</p>
+                    <!-- <a class="btn btn-dark btn-sm" href="{% url 'BlogDetail' blog.id %}">Leer</a> -->
+                    
+                    <div class="dropdown show">
+                        <a class="btn dropdown-toggle btn-sm btn-info" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'BlogDetail' blog.id %}">Leer</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'BlogEdit' blog.id %}">Editar</a>
+                            <a class="dropdown-item" href="{% url 'BlogDelete' blog.id %}">Eliminar</a>
+                            <!-- <a class="dropdown-item" href="#">(nada)</a> -->
+                        </div>
+                    </div>
+                    
+                    <!-- <a class="btn btn-outline-warning btn-sm" href="{% url 'BlogEdit' blog.id %}">Editar</a> -->
+                    <!-- <a class="btn btn-outline-danger btn-sm" href="{% url 'BlogDelete' blog.id %}">Borrar</a> -->
+
+                    <!-- Botón original -->
+                    <!-- <a class="btn btn-primary" href="{% url 'BlogDetail' blog.id %}" role="button">Ver</button> -->
+                </div>
+            </div>
+        </div>
+            {% endfor %}
+
+        {% else %}
+        <h2>No hay blogs para esta categoría/criterio.</p>
+
+        {% endif %}
+    </div>
+</div>
 
 {% endblock contenidoQueCambia %}
