@@ -8,6 +8,7 @@
         <a class="btn btn-info btn-lg btn-block mb-4" href="{% url 'BlogNew' %}">Crear un blog nuevo</a>
 
     {% for blog in object_list %}
+    <!-- este da problemas -->
     
         <li>        
             <p>Nombre: {{blog.title}}</p> 
@@ -18,7 +19,6 @@
                     <a href="{% url 'BlogEdit' blog.id %}">Editar</a>
                     <a href="{% url 'BlogDelete' blog.id %}">Borrar</a>
                 {% endif %}
-                          
                 
             </p> 
         </li>
