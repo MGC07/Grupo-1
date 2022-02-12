@@ -3,9 +3,14 @@
 {% load group %}
 {% block contenidoQueCambia %}
 
-<h1>Esta es la lista de Tag Publicados</h1>
+<div class="container">
+    <div class="row">
+        {% if user|has_group:'Admin' %}
+        <a class="btn btn-info btn-lg btn-block mb-4" href="{% url 'TagNew' %}">Crear una etiqueta nueva</a>
+        {% endif %}
 
-<ul>
+        <!-- anterior -->
+        {# for tag in object_list #}
 
     {% for tag in object_list %}
     
@@ -17,10 +22,46 @@
         </li>
     {% endfor %}
 
-</ul>
+<!-- anterior: -->
+<!-- <div class="col-4 mb-1"> -->
 
-{% if user|has_group:'Admin' %}
-    <a href="{% url 'TagNew' %}">Crear Tag</a>
-{% endif %}
+            <!-- <div class="card mb-3" style="width: 18rem;"> -->
+            <div class="card mb-3">
+
+                <!-- <div class="card-header"> -->
+                    <!-- Featured -->
+                <!-- </div> -->
+
+                <div class="card-body">
+                    <!-- <a class="btn btn-outline-info btn-xl mb-3" href="{% url 'BlogTagLista' tag.id %}">{{tag.name}}</a> -->
+                    <p></p>
+
+                    <div class="dropdown show">
+
+                        <a class="btn btn-outline-info btn-xl mb-3" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{tag.name}}</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{% url 'BlogTagLista' tag.id %}">Ver publicaciones con esta etiqueta</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Editar</a>
+                            <a class="dropdown-item" href="{% url 'TagDelete' tag.id %}">Eliminar</a>
+                            <!-- <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Eliminar Modal</a> -->
+                            <!-- <a class="dropdown-item" href="#">(nada)</a> -->
+
+                            </div>
+                    </div>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    <!-- <a href="#" class="card-link">Card link</a> -->
+                    <!-- <a href="#" class="card-link">Another link</a> -->
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+
 
 {% endblock contenidoQueCambia %}
