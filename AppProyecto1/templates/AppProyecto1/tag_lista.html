@@ -1,5 +1,6 @@
 {% extends 'AppProyecto1/padre.html' %}
 {% load static %}
+{% load group %}
 {% block contenidoQueCambia %}
 
 <h1>Esta es la lista de Tag Publicados</h1>
@@ -10,15 +11,16 @@
     
         <li>        
             <a href="{% url 'BlogTagLista' tag.id %}">{{tag.name}}</p>
-            <a href="{% url 'TagDelete' tag.id %}">borrar</a>
+            {% if user|has_group:'Admin' %}
+                <a href="{% url 'TagDelete' tag.id %}">borrar</a>
+            {% endif %}
         </li>
     {% endfor %}
 
 </ul>
 
-
+{% if user|has_group:'Admin' %}
     <a href="{% url 'TagNew' %}">Crear Tag</a>
-
-
+{% endif %}
 
 {% endblock contenidoQueCambia %}

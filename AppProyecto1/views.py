@@ -101,7 +101,7 @@ def editarPerfil(request):
 @login_required
 def avatarForm(request):
     user=User.objects.get(username=request.user)
-    avatar=Avatar.objects.filter(user=user.id)[0]
+    avatar=Avatar.objects.filter(user=user.id)
     if(request.method == "POST"):
         myAvatarForm = AvatarForm(request.POST, request.FILES)
 
@@ -109,9 +109,9 @@ def avatarForm(request):
             informacion = myAvatarForm.cleaned_data
             if avatar:
                 if informacion['imagen']:
-                    avatar.imagen=informacion['imagen']
-                avatar.descripcion=informacion['descripcion']
-                avatar.link=informacion['link']
+                    avatar[0].imagen=informacion['imagen']
+                avatar[0].descripcion=informacion['descripcion']
+                avatar[0].link=informacion['link']
             else:
                 avatar=Avatar(
                     user=user,
@@ -122,11 +122,14 @@ def avatarForm(request):
             avatar.save()
             return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar})
     else:
-        myAvatarForm = AvatarForm(
-            initial={
-                'descripcion':avatar.descripcion,
-                'link':avatar.link
-                })
+        if avatar:
+            myAvatarForm = AvatarForm(
+                initial={
+                    'descripcion':avatar[0].descripcion,
+                    'link':avatar[0].link
+                    })
+        else:
+            myAvatarForm = AvatarForm()
     return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
 
 # Fin Integración desde rama_flor_2
