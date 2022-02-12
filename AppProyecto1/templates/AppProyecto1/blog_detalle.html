@@ -4,12 +4,20 @@
 
 <!-- <div class="card" style="width: 18rem;"> -->
 <div class="card">
+    {% if post.image %}
+    <p><img src="{{blog.imagen.url}}" style="max-height:300px"/> 
+    {% else %}
     <img src="https://dummyimage.com/1400x700/505050/ffffff.jpg&text=(imagen+de+blog)" class="card-img-top" alt="...">
-    <div class="card-body">
+    {% endif %}
+        <div class="card-body">
         <h5 class="card-title fw-bold fs-2">{{blog.title}}</h5>
         <p class="card-text fst-italic">{{blog.subtitle}}</p>
     </div>
     <ul class="list-group list-group-flush">
+        <div class="small text-muted">{{blog.fechaCreacion}}</div>
+        <!-- original: -->
+        <!-- </p> Fecha de Creacion : <i>{{blog.fechaCreacion}}</i><p> -->
+
         <li class="list-group-item">{{blog.body}}</li>
         <!-- <li class="list-group-item">A second item</li> -->
         <!-- <li class="list-group-item">A third item</li> -->
@@ -53,13 +61,7 @@
     </ul>
 </div>
 
-    <!-- <p>Nombre del Blog : <i>{{blog.title}}</i></p> -->
-    <!-- <p>Subtitulo : <i>{{blog.subtitle}}</i> </p> -->
-    <!-- <p>Cuerpo : <i>{{blog.body}}</i> </p> -->
-    <!-- <p> tags </p> -->
-    <!-- {% for tag in blog.tag.all %} -->
-        <!-- <p>{{tag.name }}</p> -->
-    <!-- {% endfor %} -->
+>>>>>>> main
     <p>
         <!-- <a href="{% url 'CommentList' blog.id %}">Comentarios</a> -->
         <!-- <a href="{% url 'BlogList' %}">Regresar</a> -->

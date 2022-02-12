@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from ckeditor.fields import RichTextField
+from django.utils import timezone
+from datetime import datetime
 
 class Tag(models.Model):
     name=models.CharField(max_length=40)
@@ -10,8 +12,18 @@ class Tag(models.Model):
 class Blog(models.Model):
     title=models.CharField(max_length=40)
     subtitle=models.CharField(max_length=40)
-    body=models.TextField()
+    body=RichTextField()
     tag=models.ManyToManyField(Tag) #Este many to many crea la tabla blog_tag en la base
+    imagen= models.ImageField(upload_to="blogi/",null=True,blank=True)
+    fechaCreacion = models.DateTimeField( default=timezone.now)
+    publicacion=models.DateTimeField(default=timezone.now ,blank=True, null=True)
+    
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+   
+    
     def __str__(self):
         return self.title
 

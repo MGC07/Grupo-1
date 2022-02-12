@@ -4,6 +4,7 @@ from django.urls.conf import include
 from AppProyecto1 import views
 from django.contrib.auth.views import LogoutView
 
+
 urlpatterns = [
     path('',views.inicio,name="Inicio"),
 
@@ -33,4 +34,5 @@ urlpatterns = [
     path('verPerfil/', views.verPerfil, name="VerPerfil"),
     path('editarPerfil/', views.editarPerfil, name="EditarPerfil"),
     path('avatarForm/', views.avatarForm, name="AvatarForm"),
+    
 ]

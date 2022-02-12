@@ -188,7 +188,7 @@ class BlogCreate (CreateView):
         return context
     model= Blog
     success_url= "/AppProyecto1/blog_lista/"
-    fields = ["title","subtitle","body","tag"]
+    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion"]
 
 @method_decorator(login_required, name='dispatch')
 class BlogUpdate(UpdateView):
@@ -198,9 +198,9 @@ class BlogUpdate(UpdateView):
         return context
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
-    fields = ["title","subtitle","body","tag"]
-
-@method_decorator(login_required, name='dispatch')        
+    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion"]
+        
+@method_decorator(login_required, name='dispatch')   
 class BlogDelete(DeleteView):
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
