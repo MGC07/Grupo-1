@@ -1,18 +1,15 @@
-# from turtle import title
-# importación no ocupada
-
 from django.shortcuts import render, HttpResponse
 from AppProyecto1.models import Avatar,Blog, Tag, Comment
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
-
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
-
+from django.contrib.auth.models import Group
 
 @login_required
 def inicio(request):
@@ -22,10 +19,6 @@ def inicio(request):
         return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url,"tags":tags})
     else:
         return render(request,"AppProyecto1/inicio.html",{"tags":tags})
-
-def index(request):
-    return render(request, 'AppProyecto1/index.html')
-# Inicio Integración desde rama_flor_2
 
 def login_request(request):
     tags = Tag.objects.all()
@@ -59,13 +52,25 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
+            informacion = form.cleaned_data
             form.save()
+            user = User.objects.get(username=informacion['username'])
+            my_group = Group.objects.get(name='Users') 
+            my_group.user_set.add(user)
             return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado","tags":tags})
 
     else:
         form = UserRegisterForm()
     return render(request,"AppProyecto1/registro.html",{"form":form,"tags":tags})
+
+@login_required
+def verPerfil(request):
+    user = request.user
+    avatar = Avatar.objects.filter(user=user.id)
+    if avatar:
+        return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
+    else:
+        return render(request,"AppProyecto1/verPerfil.html",{"user":user})
 
 @login_required
 def editarPerfil(request):
@@ -82,31 +87,59 @@ def editarPerfil(request):
             user.first_name = informacion['first_name']
             user.last_name = informacion['last_name']
             user.save()
-            avatares = Avatar.objects.filter(user=request.user.id)
-            return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
+            avatar = Avatar.objects.filter(user=user.id)
+            if avatar:
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
+            else:
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user})
 
     else:
-        miFormulario = UserEditForm(initial={'email':user.email,'first_name':user.first_name,'last_name':user.last_name})
+        miFormulario = UserEditForm(
+            initial={
+                'email':user.email,
+                'first_name':user.first_name,
+                'last_name':user.last_name
+                })
 
     return render(request,"AppProyecto1/editarPerfil.html",{"miFormulario":miFormulario, "user":user})
 
 @login_required
 def avatarForm(request):
+    user=User.objects.get(username=request.user)
+    avatar=Avatar.objects.filter(user=user.id)
     if(request.method == "POST"):
         myAvatarForm = AvatarForm(request.POST, request.FILES)
 
         if myAvatarForm.is_valid():
-            user=User.objects.get(username=request.user)
-            Avatar.objects.filter(user=user.id).delete()
-            avatar=Avatar(user=user, imagen=myAvatarForm.cleaned_data['imagen'])
+            informacion = myAvatarForm.cleaned_data
+            if avatar:
+                if informacion['imagen']:
+                    avatar[0].imagen=informacion['imagen']
+                avatar[0].descripcion=informacion['descripcion']
+                avatar[0].link=informacion['link']
+            else:
+                avatar=Avatar(
+                    user=user,
+                    imagen=informacion['imagen'],
+                    descripcion=informacion['descripcion'],
+                    link=informacion['link']
+                    )
             avatar.save()
-            return render(request,'AppProyecto1/inicio.html',{"url":avatar.imagen.url})
+            return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar})
     else:
-        myAvatarForm = AvatarForm()
+        if avatar:
+            myAvatarForm = AvatarForm(
+                initial={
+                    'descripcion':avatar[0].descripcion,
+                    'link':avatar[0].link
+                    })
+        else:
+            myAvatarForm = AvatarForm()
     return render(request,"AppProyecto1/avatarForm.html",{'myAvatarForm':myAvatarForm})
 
 # Fin Integración desde rama_flor_2
 
+@method_decorator(login_required, name='dispatch')
 class BlogLista(ListView):
     model = Blog
     template_name = "AppProyecto1/blog_lista.html"
@@ -136,16 +169,18 @@ class BlogBusqueda(ListView):
         context['tags'] = Tag.objects.all()
         return context
 
+@method_decorator(login_required, name='dispatch')
 class BlogDetalle (DetailView):
     model = Blog
     template_name = "AppProyecto1/blog_detalle.html"
-
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super(BlogDetalle, self).get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         context['blogtags'] = Tag.objects.filter(blog=self.get_object())
         context['blogcomments'] = Comment.objects.filter(blog=self.get_object())
         return context
+
+@method_decorator(login_required, name='dispatch')
 class BlogCreate (CreateView):
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
@@ -155,6 +190,7 @@ class BlogCreate (CreateView):
     success_url= "/AppProyecto1/blog_lista/"
     fields = ["title","subtitle","body","tag"]
 
+@method_decorator(login_required, name='dispatch')
 class BlogUpdate(UpdateView):
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
@@ -163,7 +199,8 @@ class BlogUpdate(UpdateView):
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
     fields = ["title","subtitle","body","tag"]
-        
+
+@method_decorator(login_required, name='dispatch')        
 class BlogDelete(DeleteView):
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
@@ -172,8 +209,7 @@ class BlogDelete(DeleteView):
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
 
-# CRUD de tags:
-        
+@method_decorator(login_required, name='dispatch')       
 class TagLista(ListView):
     model= Tag
     template_name ="AppProyecto1/tag_lista.html"
@@ -183,6 +219,12 @@ class TagLista(ListView):
         context['tags'] = Tag.objects.all()
         return context
 
+@login_required
+def blogTagLista(request,tag):
+    blogs = Blog.objects.filter(tag=tag)
+    return render(request,"AppProyecto1/blog_lista.html",{'object_list':blogs})
+
+@method_decorator(login_required, name='dispatch')
 class TagCreate (CreateView):
     model= Tag
     success_url="/AppProyecto1/tag_lista/"
@@ -192,6 +234,7 @@ class TagCreate (CreateView):
         context['tags'] = Tag.objects.all()
         return context
 
+@method_decorator(login_required, name='dispatch')
 class TagDelete(DeleteView):
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
@@ -200,8 +243,7 @@ class TagDelete(DeleteView):
     model= Tag
     success_url ="/AppProyecto1/tag_lista/"
 
-# Integración de definiciones de rama_flor_2
-
+@login_required
 def blogTagLista(request,tag):
     tags = Tag.objects.all()
     blogs = Blog.objects.filter(tag=tag)
@@ -212,12 +254,13 @@ def acercaDe(request):
     tags = Tag.objects.all()
     return render(request,"AppProyecto1/about.html",{"tags":tags})
 
+# Este queda de antes -> hay que transormarlo
 def commentLista(request, blog):
     tags = Tag.objects.all()
     comments=Comment.objects.filter(blog=blog)
     return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog,"tags":tags})
 
-
+@login_required
 def commentForm(request, blog):
     tags = Tag.objects.all()
     if(request.method == "POST"):
@@ -234,6 +277,7 @@ def commentForm(request, blog):
         commentForm=CommentForm()
     return render(request,"AppProyecto1/comment_form.html",{"commentForm":commentForm,"blog":blog,"tags":tags})
 
+@method_decorator(login_required, name='dispatch')
 class CommentUpdate(UpdateView):
     model = Comment
     success_url = "/AppProyecto1/blog_lista/"
@@ -243,7 +287,7 @@ class CommentUpdate(UpdateView):
         context['tags'] = Tag.objects.all()
         return context
 
-
+@method_decorator(login_required, name='dispatch')
 class CommentDelete(DeleteView):
     model = Comment
     success_url = "/AppProyecto1/blog_lista/"

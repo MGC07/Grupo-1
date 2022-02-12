@@ -1,14 +1,29 @@
 {% extends 'AppProyecto1/padre.html' %}
 {% load static %}
+{% load group %}
 {% block contenidoQueCambia %}
 
 <div class="container">
     <div class="row">
+        {% if user|has_group:'Admin' %}
         <a class="btn btn-info btn-lg btn-block mb-4" href="{% url 'TagNew' %}">Crear una etiqueta nueva</a>
+        {% endif %}
 
-        {% for tag in object_list %}
+        <!-- anterior -->
+        {# for tag in object_list #}
 
-        <div class="col-4 mb-1">
+    {% for tag in object_list %}
+    
+        <li>        
+            <a href="{% url 'BlogTagLista' tag.id %}">{{tag.name}}</p>
+            {% if user|has_group:'Admin' %}
+                <a href="{% url 'TagDelete' tag.id %}">borrar</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+
+<!-- anterior: -->
+<!-- <div class="col-4 mb-1"> -->
 
             <!-- <div class="card mb-3" style="width: 18rem;"> -->
             <div class="card mb-3">
