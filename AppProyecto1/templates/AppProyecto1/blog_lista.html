@@ -1,5 +1,6 @@
 {% extends 'AppProyecto1/padre.html' %}
 {% load static %}
+{% load group %}
 {% block contenidoQueCambia %}
 <h1>Esta es la lista de Blog Publicados</h1>
 
@@ -10,9 +11,14 @@
         <li>        
             <p>Nombre: {{blog.title}}</p> 
             <p>    
-                <a href="{% url 'BlogDetail' blog.id %}">Ver</a>|       
-                <a href="{% url 'BlogEdit' blog.id %}">Editar</a>|
-                <a href="{% url 'BlogDelete' blog.id %}">Borrar</a>
+                <a href="{% url 'BlogDetail' blog.id %}">Ver</a> 
+                
+                {% if user|has_group:'Admin' %}
+                    <a href="{% url 'BlogEdit' blog.id %}">Editar</a>
+                    <a href="{% url 'BlogDelete' blog.id %}">Borrar</a>
+                {% endif %}
+                          
+                
             </p> 
         </li>
     {% endfor %}

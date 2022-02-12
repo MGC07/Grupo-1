@@ -1,18 +1,15 @@
-# from turtle import title
-# importación no ocupada
-
 from django.shortcuts import render, HttpResponse
 from AppProyecto1.models import Avatar,Blog, Tag, Comment
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
-
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
-
+from django.contrib.auth.models import Group
 
 @login_required
 def inicio(request):
@@ -50,7 +47,11 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
+            informacion = form.cleaned_data
             form.save()
+            user = User.objects.get(username=informacion['username'])
+            my_group = Group.objects.get(name='Users') 
+            my_group.user_set.add(user)
             return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado"})
 
     else:
@@ -130,53 +131,60 @@ def avatarForm(request):
 
 # Fin Integración desde rama_flor_2
 
+@method_decorator(login_required, name='dispatch')
 class BlogLista(ListView):
     model = Blog
     template_name = "AppProyecto1/blog_lista.html"
 
+@method_decorator(login_required, name='dispatch')
 class BlogDetalle (DetailView):
     model = Blog
     template_name = "AppProyecto1/blog_detalle.html"
 
+@method_decorator(login_required, name='dispatch')
 class BlogCreate (CreateView):
     model= Blog
     success_url= "/AppProyecto1/blog_lista/"
     fields = ["title","subtitle","body","tag"]
 
+@method_decorator(login_required, name='dispatch')
 class BlogUpdate(UpdateView):
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
     fields = ["title","subtitle","body","tag"]
-        
+
+@method_decorator(login_required, name='dispatch')        
 class BlogDelete(DeleteView):
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
 
-
-        
+@method_decorator(login_required, name='dispatch')       
 class TagLista(ListView):
     model= Tag
     template_name ="AppProyecto1/tag_lista.html"
 
+@login_required
 def blogTagLista(request,tag):
     blogs = Blog.objects.filter(tag=tag)
     return render(request,"AppProyecto1/blog_lista.html",{'object_list':blogs})
 
+@method_decorator(login_required, name='dispatch')
 class TagCreate (CreateView):
     model= Tag
     success_url="/AppProyecto1/tag_form/"
     fields = ["name"]
 
+@method_decorator(login_required, name='dispatch')
 class TagDelete(DeleteView):
     model= Tag
     success_url ="/AppProyecto1/tag_lista/"
 
-
+@login_required
 def commentLista(request, blog):
     comments=Comment.objects.filter(blog=blog)
     return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog})
 
-
+@login_required
 def commentForm(request, blog):
     if(request.method == "POST"):
         commentForm = CommentForm(request.POST)
@@ -192,12 +200,13 @@ def commentForm(request, blog):
         commentForm=CommentForm()
     return render(request,"AppProyecto1/comment_form.html",{"commentForm":commentForm,"blog":blog})
 
+@method_decorator(login_required, name='dispatch')
 class CommentUpdate(UpdateView):
     model = Comment
     success_url = "/AppProyecto1/blog_lista/"
     fields=["text","blog"]
 
-
+@method_decorator(login_required, name='dispatch')
 class CommentDelete(DeleteView):
     model = Comment
     success_url = "/AppProyecto1/blog_lista/"
