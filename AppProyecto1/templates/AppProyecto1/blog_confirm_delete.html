@@ -1,12 +1,22 @@
 {% extends 'AppProyecto1/padre.html' %}
 {% load static %}
 {% block contenidoQueCambia %}
+
+<div class="container">
 <form method="Post">{% csrf_token %}
-    ¿ Estas seguro que deseas borrar el siguiente Blog "{{object}}"?
-    <input type="submit" value="Borrar"/>
-    <p>
+    <h3>¿Estas seguro/a de que deseas borrar el blog "{{object}}"?</h3>
+
+    <!-- <a class="btn btn-info btn-lg btn-block mb-4" href="{% url 'BlogNew' %}">Crear un blog nuevo</a> -->
+    <input class="btn btn-danger mb-2" type="submit" value="Borrar">
+    <input class="btn btn-info mb-2" type="submit" value="Regresar">
+
+    <!-- Código original: -->
+    <!-- <input type="submit" value="Borrare"/> -->
+    <!-- <p>
         <a href="{% url 'BlogList' %}">Regresar</a>
-    </p>
+    </p> -->
 
 </form>
+</div>
+
 {% endblock contenidoQueCambia %}

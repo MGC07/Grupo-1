@@ -17,49 +17,55 @@ from django.contrib.auth.models import User
 @login_required
 def inicio(request):
     avatares = Avatar.objects.filter(user=request.user.id) #le cargamos al inicio la imagen del avatar del usuario logeado
+    tags = Tag.objects.all()
     if avatares:
-        return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url})
+        return render(request,"AppProyecto1/inicio.html",{"url":avatares[0].imagen.url,"tags":tags})
     else:
-        return render(request,"AppProyecto1/inicio.html")
+        return render(request,"AppProyecto1/inicio.html",{"tags":tags})
 
 def index(request):
     return render(request, 'AppProyecto1/index.html')
 # Inicio Integración desde rama_flor_2
 
 def login_request(request):
+    tags = Tag.objects.all()
     if request.method == "POST":
         form = AuthenticationForm(request,data = request.POST)
+        
 
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
+            
 
             if user is not None:
                 login(request,user)
+                
                 avatares = Avatar.objects.filter(user=request.user.id)
                 if avatares:
-                    return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}","url":avatares[0].imagen.url})
+                    return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}","url":avatares[0].imagen.url,"tags":tags})
                 else:
-                    return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}"})
+                    return render(request,"AppProyecto1/inicio.html",{"mensaje":f"Bienvenido {username}","tags":tags})
             else:
-                return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, datos incorrectos"})
+                return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, datos incorrectos","tags":tags})
         else:
-            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, formulario erroneo"})
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Error, formulario erroneo","tags":tags})
     form = AuthenticationForm()
-    return render(request,"AppProyecto1/login.html",{'form':form})
+    return render(request,"AppProyecto1/login.html",{'form':form,"tags":tags})
 
 def register(request):
+    tags = Tag.objects.all()
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
             form.save()
-            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado"})
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado","tags":tags})
 
     else:
         form = UserRegisterForm()
-    return render(request,"AppProyecto1/registro.html",{"form":form})
+    return render(request,"AppProyecto1/registro.html",{"form":form,"tags":tags})
 
 @login_required
 def editarPerfil(request):
@@ -104,22 +110,65 @@ def avatarForm(request):
 class BlogLista(ListView):
     model = Blog
     template_name = "AppProyecto1/blog_lista.html"
+    
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
+class BlogBusqueda(ListView):
+    model = Blog
+    template_name = "AppProyecto1/blog_lista.html"
+    # context_object_name = 'all_search_results'
+
+    def get_queryset(self):
+        result = super(BlogBusqueda, self).get_queryset()
+        query = self.request.GET.get('search')
+        if query:
+            postresult = Blog.objects.filter(title__contains=query)
+            result = postresult
+        else:
+            result = None
+        return result
+    
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 class BlogDetalle (DetailView):
     model = Blog
     template_name = "AppProyecto1/blog_detalle.html"
 
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super(BlogDetalle, self).get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        context['blogtags'] = Tag.objects.filter(blog=self.get_object())
+        context['blogcomments'] = Comment.objects.filter(blog=self.get_object())
+        return context
 class BlogCreate (CreateView):
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
     model= Blog
     success_url= "/AppProyecto1/blog_lista/"
     fields = ["title","subtitle","body","tag"]
 
 class BlogUpdate(UpdateView):
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
     fields = ["title","subtitle","body","tag"]
         
 class BlogDelete(DeleteView):
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
     model= Blog
     success_url = "/AppProyecto1/blog_lista/"
 
@@ -128,23 +177,49 @@ class BlogDelete(DeleteView):
 class TagLista(ListView):
     model= Tag
     template_name ="AppProyecto1/tag_lista.html"
+    
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 class TagCreate (CreateView):
     model= Tag
-    success_url="/AppProyecto1/tag_form/"
+    success_url="/AppProyecto1/tag_lista/"
     fields = ["name"]
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 class TagDelete(DeleteView):
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
     model= Tag
     success_url ="/AppProyecto1/tag_lista/"
 
+# Integración de definiciones de rama_flor_2
+
+def blogTagLista(request,tag):
+    tags = Tag.objects.all()
+    blogs = Blog.objects.filter(tag=tag)
+    return render(request,"AppProyecto1/blog_lista.html",{'object_list':blogs,"tags":tags})
+    
+
+def acercaDe(request):
+    tags = Tag.objects.all()
+    return render(request,"AppProyecto1/about.html",{"tags":tags})
 
 def commentLista(request, blog):
+    tags = Tag.objects.all()
     comments=Comment.objects.filter(blog=blog)
-    return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog})
+    return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog,"tags":tags})
 
 
 def commentForm(request, blog):
+    tags = Tag.objects.all()
     if(request.method == "POST"):
         commentForm = CommentForm(request.POST)
 
@@ -154,17 +229,25 @@ def commentForm(request, blog):
             comment = Comment(text=informacion['text'], blog=blogObj)
             comment.save()
             comments = Comment.objects.filter(blog=blog)
-            return render(request,"AppProyecto1/comment_lista.html",{"comments":comments,"blog":blog})
+            return render(request,"AppProyecto1/comment_lista.html",{"comments":comments,"blog":blog,"tags":tags})
     else:
         commentForm=CommentForm()
-    return render(request,"AppProyecto1/comment_form.html",{"commentForm":commentForm,"blog":blog})
+    return render(request,"AppProyecto1/comment_form.html",{"commentForm":commentForm,"blog":blog,"tags":tags})
 
 class CommentUpdate(UpdateView):
     model = Comment
     success_url = "/AppProyecto1/blog_lista/"
     fields=["text","blog"]
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 
 class CommentDelete(DeleteView):
     model = Comment
     success_url = "/AppProyecto1/blog_lista/"
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
