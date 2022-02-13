@@ -4,10 +4,11 @@
 {% block contenidoQueCambia %}
 <div>
     <h2>Perfil de {{user.username}}</h2>
-    <p>Email: {{user.email}}</p>
     <p>Nombre: {{user.first_name}}</p>
     <p>Apellido: {{user.last_name}}</p>
     <p>Email: {{user.email}}</p>
+    <p>Descripcion: {{avatar.descripcion}}</p>
+    <p>Link: {{avatar.link}}</p>
     <img height="100px" src="{{avatar.imagen.url}}">
 </div>
 

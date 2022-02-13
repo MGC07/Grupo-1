@@ -2,12 +2,19 @@ from django import forms
 from AppProyecto1.models import Tag, Blog
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
+
 
 class BlogForm(forms.Form):
     title=forms.CharField(max_length=40)
     subtitle=forms.CharField(max_length=40)
     body=forms.CharField(widget=forms.Textarea)
     tags=forms.ModelMultipleChoiceField(queryset=Tag.objects.all(),widget=forms.CheckboxSelectMultiple)
+    imagen=forms.ImageField()
+    fechaCreacion= forms.DateTimeField()
+    publicacion= forms.DateTimeField()
+    
+    
 
 class TagForm(forms.Form):
     name=forms.CharField(max_length=40)
@@ -39,4 +46,6 @@ class UserEditForm(UserCreationForm):
         help_texts = {k:"" for k in fields}
 
 class AvatarForm(forms.Form):
-    imagen=forms.ImageField()
+    imagen=forms.ImageField(required=False)
+    descripcion = forms.CharField(widget=forms.Textarea)
+    link = forms.URLField()

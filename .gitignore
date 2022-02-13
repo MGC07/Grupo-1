@@ -1,7 +1,10 @@
 */*.pyc
+<<<<<<< HEAD
 */*.sqlite3
 *.sqlite3
-*.pyc
 _pycache_/
 __pycache__/
+=======
 _pycache_/
+*.sqlite3
+>>>>>>> main
