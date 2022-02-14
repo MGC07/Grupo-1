@@ -98,6 +98,7 @@
                     <!-- Fin Widget usuario/a -->
 
                     <!-- Inicio Widget búsqueda-->
+                    {% if request.user.is_authenticated %}
                     
                     <div class="card mb-4">
                         <div class="card-header">Búsqueda</div>
@@ -111,36 +112,30 @@
                         </div>
                     </div>
 
+                    {% endif %}
+
                     <!-- Fin Widget búsqueda-->
 
                     <!-- Inicio Widget Etiquetas -->
 
+                    {% if request.user.is_authenticated %}
+
                     <div class="card mb-4">
                         <div class="card-header">Etiquetas</div>
                         <div class="card-body">
-                            <!-- <div class="row"> -->
 
                                 {% for tag in tags %}
 
-                                <!-- <div class="col-sm-4" mb-2> -->
                                     <a class="btn btn-outline-info btn mb-3" href="{% url 'BlogTagLista' tag.id %}" role="button" text-nowrap>{{tag.name}}</a>
-                                <!-- </div> -->
-
                                 
                                 {% endfor %}
 
-                                <!-- {% for tag in blog.tag.all %} -->
-
-                                <!-- <p>este es un tag: {{tag.name}}</p> -->
-
-                                <!-- {% endfor %} -->
-
-                            <!-- </div> -->
                         </div>
                     </div>
 
-                    <!-- Fin Widget Etiquetas -->
+                    {% endif %}
 
+                    <!-- Fin Widget Etiquetas -->
 
 
                 </div>
@@ -167,7 +162,4 @@
         <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 
 </body>
-</html>
-
-    </body>
 </html>
