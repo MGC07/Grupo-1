@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         {% load static %}
+        {% load group %}
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -76,8 +77,21 @@
                     <!-- Inicio Widget usuario/a -->
 
                     <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">¡Bienvenido/a a este blog {{ user.username }}!</div>
+                        <div class="card-header">Usuario/a</div>
+                        {% if not request.user.is_authenticated %}
+                            <div class="card-body">Para acceder al contenido de este página, debes registrarte e iniciar sesión.</div>
+                        {% else %}
+                            <div class="card-body">¡Bienvenido/a a este blog {{ user.username }}!</div>
+                            {% if user|has_group:'Admin' %}
+                                <div class="card-body">Eres un/a <b>administrador/a</b> de este sitio</div>
+                            {% else %}
+                                <div class="card-body">Eres un/a <b>usuario/a</b> de este sitio</div>
+                            {% endif %}
+                        {% endif %}
+
+
+                        
+                        </p>
                         <p></p>
                     </div>
 
