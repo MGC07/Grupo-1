@@ -19,7 +19,7 @@ class Blog(models.Model):
     publicacion=models.DateTimeField(default=timezone.now ,blank=True, null=True)
     
 
-    def publish(self):
+    def publicacion(self):
         self.published_date = timezone.now()
         self.save()
    
