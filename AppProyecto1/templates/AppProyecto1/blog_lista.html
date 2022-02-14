@@ -21,8 +21,6 @@
                 {% endif %}
 
                 <div class="card-body">
-                        <!-- <div class="small text-muted">January 1, 2021</div> -->
-                        <!-- el anterior es para la la fecha (un primer texto en gris) -->
                     <h2 class="card-title h4" href="{% url 'BlogDetail' blog.id %}">{{blog.title}}</h2>
                     <p class="card-text italic">{{blog.subtitle}}</p>
                     
@@ -36,7 +34,9 @@
                             <a class="dropdown-item" href="{% url 'BlogEdit' blog.id %}">Editar</a>
                             <a class="dropdown-item" href="{% url 'BlogDelete' blog.id %}">Eliminar</a>
                             {% else %}
-                            <a class="dropdown-item font-italic">(Para editar necesitas tener permisos de administrador.)</a>
+                            <a class="dropdown-item font-italic">
+                                
+                            </a>
                             {% endif %}
 
                         </div>
