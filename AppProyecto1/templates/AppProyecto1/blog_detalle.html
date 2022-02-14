@@ -1,52 +1,40 @@
 {% extends 'AppProyecto1/padre.html' %}
 {% load static %}
+{% load group %}
 {% block contenidoQueCambia %}
 
 <!-- <div class="card" style="width: 18rem;"> -->
 <div class="card">
     {% if blog.imagen %}
-    <p><img src="{{blog.imagen.url}}" style="max-height:300px"/> 
+    <img src="{{blog.imagen.url}}" /> 
     {% else %}
     <img src="https://dummyimage.com/1400x700/505050/ffffff.jpg&text=(imagen+de+blog)" class="card-img-top" alt="...">
     {% endif %}
         <div class="card-body">
         <h5 class="card-title fw-bold fs-2">{{blog.title}}</h5>
         <p class="card-text fst-italic">{{blog.subtitle}}</p>
+        <div class="small text-muted">{{blog.fechaCreacion}}</div>
     </div>
     <ul class="list-group list-group-flush">
-        <div class="small text-muted">{{blog.fechaCreacion}}</div>
-        <!-- original: -->
-        <!-- </p> Fecha de Creacion : <i>{{blog.fechaCreacion}}</i><p> -->
-
-        <li class="list-group-item">{{blog.body}}</li>
-        <!-- <li class="list-group-item">A second item</li> -->
-        <!-- <li class="list-group-item">A third item</li> -->
+            <li class="list-group-item">{{blog.body}}</li>
     </ul>
     <div class="card-body">
-        <!-- <a href="#" class="card-link">Card link</a> -->
-        <!-- <a href="#" class="card-link">Another link</a> -->
         <p>Etiquetas de este blog:</p>
         
         {% for tag in blogtags %}
-
-        <!-- <p>{{tag.name}}</p> -->
-
-            <!-- <div class="col-sm-4" mb-2> -->
-
                 <a class="btn btn-outline-info btn mb-3" href="{% url 'BlogTagLista' tag.id %}" role="button" text-nowrap>{{tag.name}}</a>
-            
-                <!-- </div> -->
-
-            
         {% endfor %}
     </div>
+
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             <p>Comentarios:</p>
             <ul class="list-group">
                 {% for comment in blogcomments %}
                 <li class="list-group-item">{{comment.text}}</li>
+                {% if user|has_group:'Admin' %}
                 <a href="{% url 'CommentDelete' comment.id %}"><i>(Borrar comentario)</i></a>
+                {% endif %}
                 </li><p></p>
             {% endfor %}
             </ul>
@@ -60,17 +48,14 @@
         </li>
     </ul>
 </div>
-
->>>>>>> main
-    <p>
-        <!-- <a href="{% url 'CommentList' blog.id %}">Comentarios</a> -->
-        <!-- <a href="{% url 'BlogList' %}">Regresar</a> -->
-    </p>
-
-    <!-- <input class="btn btn-info mb-2" href="{% url 'BlogList' %}" value="Regresar"> -->
-    <a class="btn btn-info" href="{% url 'BlogList' %}" role="button" mb-10>Regresar</a>
     <p></p>
-
-
+    {% if user|has_group:'Admin' %}
+    <a class="btn btn-warning mb-4" href="{% url 'BlogEdit' blog.id %}" role="button" mb-10> Editar </a>
+    <a class="btn btn-danger mb-4" href="{% url 'BlogDelete' blog.id %}" role="button" mb-10> Borrar </a>
+    <a class="btn btn-info mb-4" href="{% url 'BlogList' %}" role="button" mb-10> Regresar </a>
+    {% else %}
+    <a class="btn btn-info" href="{% url 'BlogList' %}" role="button" mb-10>Regresar</a>
+    {% endif %}
+    <p></p>
 
 {% endblock contenidoQueCambia %}
