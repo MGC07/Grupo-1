@@ -152,7 +152,6 @@ class BlogLista(ListView):
 class BlogBusqueda(ListView):
     model = Blog
     template_name = "AppProyecto1/blog_lista.html"
-    # context_object_name = 'all_search_results'
 
     def get_queryset(self):
         result = super(BlogBusqueda, self).get_queryset()
@@ -254,11 +253,11 @@ def acercaDe(request):
     tags = Tag.objects.all()
     return render(request,"AppProyecto1/about.html",{"tags":tags})
 
-# Este queda de antes -> hay que transormarlo
-def commentLista(request, blog):
-    tags = Tag.objects.all()
-    comments=Comment.objects.filter(blog=blog)
-    return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog,"tags":tags})
+# Este ya no se ocupa
+# def commentLista(request, blog):
+    # tags = Tag.objects.all()
+    # comments=Comment.objects.filter(blog=blog)
+    # return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog,"tags":tags})
 
 @login_required
 def commentForm(request, blog):
