@@ -25,7 +25,6 @@ urlpatterns = [
 
     path('comment_lista/<blog>', views.commentLista, name = 'CommentList'),
     path('comment_nuevo/<blog>', views.commentForm, name = 'CommentNew'),
-    path('comment_editar/<pk>/', views.CommentUpdate.as_view(), name = 'CommentEdit'),
     path('comment_borrar/<pk>/', views.CommentDelete.as_view(), name = 'CommentDelete'),
 
     path('login/', views.login_request, name='Login'),

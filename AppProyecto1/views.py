@@ -272,20 +272,11 @@ def commentForm(request, blog):
             comment = Comment(text=informacion['text'], blog=blogObj)
             comment.save()
             comments = Comment.objects.filter(blog=blog)
-            return render(request,"AppProyecto1/comment_lista.html",{"comments":comments,"blog":blog,"tags":tags})
+            blogtags = Tag.objects.filter(blog=blog)
+            return render(request,"AppProyecto1/blog_detalle.html",{"blogcomments":comments,"blog":blogObj,"tags":tags,"blogtags":blogtags})
     else:
         commentForm=CommentForm()
     return render(request,"AppProyecto1/comment_form.html",{"commentForm":commentForm,"blog":blog,"tags":tags})
-
-@method_decorator(login_required, name='dispatch')
-class CommentUpdate(UpdateView):
-    model = Comment
-    success_url = "/AppProyecto1/blog_lista/"
-    fields=["text","blog"]
-    def get_context_data(self, **kwargs): # Función para invocar tags
-        context = super().get_context_data(**kwargs)
-        context['tags'] = Tag.objects.all()
-        return context
 
 @method_decorator(login_required, name='dispatch')
 class CommentDelete(DeleteView):
