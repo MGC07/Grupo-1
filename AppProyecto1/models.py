@@ -42,8 +42,12 @@ class Avatar(models.Model):
     def __str__(self):
         return f"Avatar de: {self.user.username}"
 
-# class Mensajeria(models.Model):
-#     remitente = models.ForeignKey(User, related_name="remitente")
-#     receptor = models.ForeignKey(User, related_name="receptor")
-#     contenido = models.TextField()
-#     created_at = models.TimeField()
+class Mensajeria(models.Model):
+    remitente = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="remitente")
+    receptor = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name="receptor")
+    contenido = RichTextField()
+    created_at = models.DateTimeField(default=timezone.now ,blank=True, null=True)
+
+    def __str__(self):
+        return self.remitente
+

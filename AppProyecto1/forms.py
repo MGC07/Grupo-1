@@ -49,3 +49,9 @@ class AvatarForm(forms.Form):
     imagen=forms.ImageField(required=False)
     descripcion = forms.CharField(widget=forms.Textarea)
     link = forms.URLField()
+
+class MensajeForm(forms.Form):
+    remitente=forms.CharField(max_length=40)
+    receptor=forms.CharField(max_length=40)
+    contenido=forms.CharField(widget=forms.Textarea)
+    created_at = forms.DateTimeField()

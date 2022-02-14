@@ -32,4 +32,8 @@ urlpatterns = [
     path('editarPerfil/', views.editarPerfil, name="EditarPerfil"),
     path('avatarForm/', views.avatarForm, name="AvatarForm"),
     
+    path('redactar/', views.MensajeCreate.as_view(), name = 'RedactarMensaje'),
+    path('inbox/', views.inboxview, name = 'Inbox'),
+    path('eliminarmensaje/<pk>/', views.MensajeDelete.as_view(), name = 'EliminarMensaje')
+
 ]
