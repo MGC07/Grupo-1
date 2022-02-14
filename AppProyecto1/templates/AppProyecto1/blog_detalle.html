@@ -5,41 +5,26 @@
 <!-- <div class="card" style="width: 18rem;"> -->
 <div class="card">
     {% if blog.imagen %}
-    <p><img src="{{blog.imagen.url}}" style="max-height:300px"/> 
+    <img src="{{blog.imagen.url}}" /> 
     {% else %}
     <img src="https://dummyimage.com/1400x700/505050/ffffff.jpg&text=(imagen+de+blog)" class="card-img-top" alt="...">
     {% endif %}
         <div class="card-body">
         <h5 class="card-title fw-bold fs-2">{{blog.title}}</h5>
         <p class="card-text fst-italic">{{blog.subtitle}}</p>
+        <div class="small text-muted">{{blog.fechaCreacion}}</div>
     </div>
     <ul class="list-group list-group-flush">
-        <div class="small text-muted">{{blog.fechaCreacion}}</div>
-        <!-- original: -->
-        <!-- </p> Fecha de Creacion : <i>{{blog.fechaCreacion}}</i><p> -->
-
-        <li class="list-group-item">{{blog.body}}</li>
-        <!-- <li class="list-group-item">A second item</li> -->
-        <!-- <li class="list-group-item">A third item</li> -->
+            <li class="list-group-item">{{blog.body}}</li>
     </ul>
     <div class="card-body">
-        <!-- <a href="#" class="card-link">Card link</a> -->
-        <!-- <a href="#" class="card-link">Another link</a> -->
         <p>Etiquetas de este blog:</p>
         
         {% for tag in blogtags %}
-
-        <!-- <p>{{tag.name}}</p> -->
-
-            <!-- <div class="col-sm-4" mb-2> -->
-
                 <a class="btn btn-outline-info btn mb-3" href="{% url 'BlogTagLista' tag.id %}" role="button" text-nowrap>{{tag.name}}</a>
-            
-                <!-- </div> -->
-
-            
         {% endfor %}
     </div>
+    
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             <p>Comentarios:</p>
