@@ -1,5 +1,5 @@
 from django import forms
-from AppProyecto1.models import Tag, Blog
+from AppProyecto1.models import Mensajeria, Tag, Blog
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
@@ -50,8 +50,10 @@ class AvatarForm(forms.Form):
     descripcion = forms.CharField(widget=forms.Textarea)
     link = forms.URLField()
 
-class MensajeForm(forms.Form):
-    remitente=forms.CharField(max_length=40)
+class MensajeForm(forms.ModelForm):
     receptor=forms.CharField(max_length=40)
     contenido=forms.CharField(widget=forms.Textarea)
     created_at = forms.DateTimeField()
+    class Meta:
+        model = Mensajeria
+        exclude = ['remitente']

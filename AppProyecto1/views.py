@@ -297,16 +297,18 @@ def inboxview(request):
 class MensajeCreate (CreateView):
     model= Mensajeria
     success_url="/AppProyecto1/inbox/"
-    fields = ["remitente","receptor","contenido","created_at"]
+    fields = ["receptor","contenido","created_at"]
+
+    def form_valid(self, form):
+        form.instance.remitente = self.request.user
+        return super(MensajeCreate, self).form_valid(form)
 
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
     
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(MensajeCreate, self).form_valid(form)
+
 
 @method_decorator(login_required, name='dispatch')
 class MensajeDelete(DeleteView):
