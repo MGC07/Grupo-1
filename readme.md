@@ -29,7 +29,9 @@ git clone <https://github.com/MGC07/Grupo-1.git>
 Se dividio el trabajo sobre los temas que mas nos sentiamos seguros en desarrollar, creamos diferentes ramas para trabajar en paralelo.
 
 Maria Florencia Mendoza--trabajo sobre los modelos y formularios
-Martin Bonnefoy Valdés -- trabajo sobre herncia y html
+
+Martin Bonnefoy Valdés -- Herencias HTML, aspectos visuales, implementación de navbar y sidebar, sistemas de búsqueda (cuadro de búsqueda y según tags), sistema de mensajería.
+
 Maria Guadalupe Casas --Alta Github , buscar en formularios y Readme
 
 ##### Informacion de los contenidos dentro de las URLS
