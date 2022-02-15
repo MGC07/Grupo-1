@@ -12,9 +12,9 @@ class BlogForm(forms.Form):
     tags=forms.ModelMultipleChoiceField(queryset=Tag.objects.all(),widget=forms.CheckboxSelectMultiple)
     imagen=forms.ImageField()
     fechaCreacion= forms.DateTimeField()
-    publicacion= forms.DateTimeField()
+    publicacion= forms.DateTimeField()  
     
-    
+  
 
 class TagForm(forms.Form):
     name=forms.CharField(max_length=40)

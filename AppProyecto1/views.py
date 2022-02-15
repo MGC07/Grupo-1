@@ -152,7 +152,6 @@ class BlogLista(ListView):
 class BlogBusqueda(ListView):
     model = Blog
     template_name = "AppProyecto1/blog_lista.html"
-    # context_object_name = 'all_search_results'
 
     def get_queryset(self):
         result = super(BlogBusqueda, self).get_queryset()
@@ -164,7 +163,7 @@ class BlogBusqueda(ListView):
             result = None
         return result
     
-    def get_context_data(self, **kwargs): # Función para invocar tags
+    def get_context_data(self,**kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
@@ -173,8 +172,8 @@ class BlogBusqueda(ListView):
 class BlogDetalle (DetailView):
     model = Blog
     template_name = "AppProyecto1/blog_detalle.html"
-    def get_context_data(self, **kwargs): # Función para invocar tags
-        context = super(BlogDetalle, self).get_context_data(**kwargs)
+    def get_context_data(self,**kwargs): # Función para invocar tags
+        context = super(BlogDetalle,self).get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         context['blogtags'] = Tag.objects.filter(blog=self.get_object())
         context['blogcomments'] = Comment.objects.filter(blog=self.get_object())
@@ -182,13 +181,18 @@ class BlogDetalle (DetailView):
 
 @method_decorator(login_required, name='dispatch')
 class BlogCreate (CreateView):
-    def get_context_data(self, **kwargs): # Función para invocar tags
+    def get_context_data(self,**kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
     model= Blog
     success_url= "/AppProyecto1/blog_lista/"
-    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion"]
+    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion","autor"]
+
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        return super(BlogCreate, self).form_valid(form)
+
 
 @method_decorator(login_required, name='dispatch')
 class BlogUpdate(UpdateView):
@@ -254,11 +258,11 @@ def acercaDe(request):
     tags = Tag.objects.all()
     return render(request,"AppProyecto1/about.html",{"tags":tags})
 
-# Este queda de antes -> hay que transormarlo
-def commentLista(request, blog):
-    tags = Tag.objects.all()
-    comments=Comment.objects.filter(blog=blog)
-    return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog,"tags":tags})
+# Este ya no se ocupa
+# def commentLista(request, blog):
+    # tags = Tag.objects.all()
+    # comments=Comment.objects.filter(blog=blog)
+    # return render(request,"AppProyecto1/comment_lista.html",{"comments":comments, "blog":blog,"tags":tags})
 
 @login_required
 def commentForm(request, blog):

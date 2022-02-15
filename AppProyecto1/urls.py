@@ -14,16 +14,14 @@ urlpatterns = [
     path("detalle/<pk>/",views.BlogDetalle.as_view(), name= 'BlogDetail'),
     path("blog_nuevo/",views.BlogCreate.as_view(), name= 'BlogNew'),
     path("blog_editar/<pk>/",views.BlogUpdate.as_view(), name= 'BlogEdit'),
-    
     path("blog_borrar/<pk>/",views.BlogDelete.as_view(), name= 'BlogDelete'),
-
     path("tag_lista/",views.TagLista.as_view(), name= 'TagList'),
     path("blogTagLista/<tag>", views.blogTagLista, name= 'BlogTagLista'),
 
     path("nuevo_tag/",views.TagCreate.as_view(), name= 'TagNew'),
     path("borrar_tag/<pk>/",views.TagDelete.as_view(), name= 'TagDelete'),
 
-    path('comment_lista/<blog>', views.commentLista, name = 'CommentList'),
+    # path('comment_lista/<blog>', views.commentLista, name = 'CommentList'),
     path('comment_nuevo/<blog>', views.commentForm, name = 'CommentNew'),
     path('comment_borrar/<pk>/', views.CommentDelete.as_view(), name = 'CommentDelete'),
 
