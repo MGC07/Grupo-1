@@ -14,13 +14,21 @@ Buscar en un Formulario
 
 ##### Requisitos del entorno
 
-Para poder replicar el proyecto debera tener instalado Python /Django y tener acceso a Github
-Para mas etalle como instalar las mismas, se dejan los siguientes links
+Para poder replicar el proyecto debera tener instalado:
+Windows 10
+Python 3.10.1
+Django 4.0
+Tener acceso a Github
+Para mas detalle como instalar las mismas, se dejan los siguientes links
 <https://www.python.org>
 <https://www.djangoproject.com>
 <https://github.com>
 Para descargar el proyecto debera clonar el mismo ingresando el siguiente comando
 git clone <https://github.com/MGC07/Grupo-1.git>
+pip install django=4.0
+cd<AppProyecto1>
+python manage.py runserver
+En el browser: http://localhost:8000/
 
 #### Informacion sobre el desarrollo
 
@@ -32,7 +40,7 @@ Maria Florencia Mendoza-- login/logout, register, Perfiles, Avatar, grupos Admin
 
 Martin Bonnefoy Valdés -- Herencias HTML, aspectos visuales, implementación de navbar y sidebar, sistemas de búsqueda (cuadro de búsqueda y según tags), sistema de mensajería.
 
-Maria Guadalupe Casas --Alta Github , buscar en formularios, crear en el modelo de blog Fecha de Creacion/fecha de Publicacion/Autor, chekeditor, unit-test  y Readme
+Maria Guadalupe Casas --Alta Github , buscar en formularios, CRUD utilizando vistas basadas en clases, crear en el modelo de blog Fecha de Creacion/fecha de Publicacion/Autor, chekeditor, unit-test  y Readme
 
 ##### Informacion de los contenidos dentro de las URLS
 
