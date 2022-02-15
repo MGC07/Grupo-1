@@ -32,26 +32,24 @@ Para mas detalle como instalar las mismas, se dejan los siguientes links
 
 Para descargar el proyecto debera clonar el mismo ingresando el siguiente comando
 
-'''
-
+```
 git clone <https://github.com/MGC07/Grupo-1.git>
-
 pip install django=4.0
-
 pip install django-ckeditor
-
 pip install pillow
-
-'''
+```
 
 ##### Ejecución del proyecto
 
 Para ejecutar el proyecto, es necesario realizar los siguientes comandos:
 
+```
+python manage.py migrate
+python manage.py loaddata grupo.json
+python manage.py createsuperuser # El modelo Blog necesita de la existencia de una instancia del modelo Tag para funcionar, por lo que se hace necesario que un superuser genere un primer Tag a través del formulario de la página.
 python manage.py runserver
 
-En el browser: http://localhost:8000/
-
+```
 #### Informacion sobre el desarrollo
 
 ##### Equipo de trabajo
