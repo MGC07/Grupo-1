@@ -9,11 +9,17 @@ Generar la estrucutura de un Blog utilizando lo aprendido en clase a traves de l
 Finalizado en su primera etapa, en la que se desarrollaron los siguientes conceptos:
 
 Herencia HTML
+
 Modelos
+
 Formularios
+
 Búsqueda por formulario
+
 Sistema de mensajería
+
 Edición de texto avanzada con CKEditor
+
 
 ##### Requisitos del entorno
 
