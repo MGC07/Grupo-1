@@ -64,7 +64,11 @@ python manage.py loaddata grupo.json
 python manage.py createsuperuser
 python manage.py runserver
 ```
-_Importante: El modelo Blog necesita de la existencia de una instancia del modelo Tag para funcionar, por lo que se hace necesario que un superuser genere un primer Tag a través del formulario de la página._
+_Importante: Para el correcto funcionamiento del proyecto, es necesario realizar dos pasos iniciales con el superuser creado:_
+
+_(1) En el panel de administración de django es necesario asignar al superuser al grupo Admin_
+
+_(2) El modelo Blog necesita de la existencia de una instancia del modelo Tag para funcionar, por lo que se hace necesario que un superuser genere una primera etiqueta (Tag) a través del panel de administración de django o del formulario de la página._
 
 Un video que da cuenta de las distintas partes del funcionamiento de la página está disponible en [este link](https://drive.google.com/file/d/1JwGMh3I2OV3Akif0GS9iqV8_JWf0S3cq/view).
 
