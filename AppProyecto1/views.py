@@ -163,7 +163,7 @@ class BlogBusqueda(ListView):
             result = None
         return result
     
-    def get_context_data(self, **kwargs): # Función para invocar tags
+    def get_context_data(self,**kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
@@ -172,8 +172,8 @@ class BlogBusqueda(ListView):
 class BlogDetalle (DetailView):
     model = Blog
     template_name = "AppProyecto1/blog_detalle.html"
-    def get_context_data(self, **kwargs): # Función para invocar tags
-        context = super(BlogDetalle, self).get_context_data(**kwargs)
+    def get_context_data(self,**kwargs): # Función para invocar tags
+        context = super(BlogDetalle,self).get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         context['blogtags'] = Tag.objects.filter(blog=self.get_object())
         context['blogcomments'] = Comment.objects.filter(blog=self.get_object())
@@ -181,13 +181,18 @@ class BlogDetalle (DetailView):
 
 @method_decorator(login_required, name='dispatch')
 class BlogCreate (CreateView):
-    def get_context_data(self, **kwargs): # Función para invocar tags
+    def get_context_data(self,**kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
     model= Blog
     success_url= "/AppProyecto1/blog_lista/"
-    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion"]
+    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion","autor"]
+
+    def form_valid(self, form):
+        form.instance.user=self.request.user
+        return super(BlogCreate, self).form_valid(form)
+
 
 @method_decorator(login_required, name='dispatch')
 class BlogUpdate(UpdateView):
