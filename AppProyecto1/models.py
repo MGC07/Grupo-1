@@ -15,7 +15,7 @@ class Blog(models.Model):
     body=RichTextField()
     tag=models.ManyToManyField(Tag) #Este many to many crea la tabla blog_tag en la base
     imagen= models.ImageField(upload_to="blogi/",null=True,blank=True)
-    fechaCreacion = models.DateTimeField( default=timezone.now)
+    fechaCreacion = models.DateTimeField(default=timezone.now)
     publicacion=models.DateTimeField(default=timezone.now ,blank=True, null=True)
     autor= models.ForeignKey(User, on_delete=models.CASCADE,default=None)
        

@@ -187,10 +187,10 @@ class BlogCreate (CreateView):
         return context
     model= Blog
     success_url= "/AppProyecto1/blog_lista/"
-    fields = ["title","subtitle","body","tag","imagen","fechaCreacion","publicacion","autor"]
+    fields = ["title","subtitle","body","tag","imagen"]
 
     def form_valid(self, form):
-        form.instance.user=self.request.user
+        form.instance.autor=self.request.user
         return super(BlogCreate, self).form_valid(form)
 
 
