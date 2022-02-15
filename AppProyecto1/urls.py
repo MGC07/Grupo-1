@@ -1,3 +1,4 @@
+import django.views.defaults
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
@@ -33,10 +34,6 @@ urlpatterns = [
     
     path('redactar/', views.MensajeCreate.as_view(), name = 'RedactarMensaje'),
     path('inbox/', views.inboxview, name = 'Inbox'),
-    path('eliminarmensaje/<pk>/', views.MensajeDelete.as_view(), name = 'EliminarMensaje')
-
-
+    path('eliminarmensaje/<pk>/', views.MensajeDelete.as_view(), name = 'EliminarMensaje'),
 
 ]
-
-handler404 = "AppProyecto1.views.page_not_found_view"

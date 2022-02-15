@@ -118,6 +118,8 @@ def avatarForm(request):
                     avatar[0].imagen=informacion['imagen']
                 avatar[0].descripcion=informacion['descripcion']
                 avatar[0].link=informacion['link']
+                avatar[0].save()
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
             else:
                 avatar=Avatar(
                     user=user,
@@ -125,8 +127,10 @@ def avatarForm(request):
                     descripcion=informacion['descripcion'],
                     link=informacion['link']
                     )
-            avatar[0].save()
-            return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
+                avatar.save()
+                return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar})
+
+            # return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar})
     else:
         if avatar:
             myAvatarForm = AvatarForm(
@@ -318,6 +322,3 @@ class MensajeDelete(DeleteView):
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
-
-def page_not_found_view(request, exception):
-    return render(request, 'AppProyecto1/404.html', status=404)
