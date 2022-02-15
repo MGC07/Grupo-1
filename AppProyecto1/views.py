@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from AppProyecto1.models import Avatar,Blog, Tag, Comment
+from AppProyecto1.models import Avatar,Blog, Mensajeria, Tag, Comment
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
 from django.views.generic.detail import DetailView
@@ -286,6 +286,39 @@ def commentForm(request, blog):
 class CommentDelete(DeleteView):
     model = Comment
     success_url = "/AppProyecto1/blog_lista/"
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+
+@login_required
+def inboxview(request):
+    inbox = Mensajeria.objects.filter(receptor=request.user)
+    enviados = Mensajeria.objects.filter(remitente=request.user)
+    tags = Tag.objects.all()
+    return render(request,"AppProyecto1/mensajes_lista.html",{"inbox":inbox,"tags":tags,"enviados":enviados})
+
+@method_decorator(login_required, name='dispatch')
+class MensajeCreate (CreateView):
+    model= Mensajeria
+    success_url="/AppProyecto1/inbox/"
+    fields = ["receptor","contenido","created_at"]
+
+    def form_valid(self, form):
+        form.instance.remitente = self.request.user
+        return super(MensajeCreate, self).form_valid(form)
+
+    def get_context_data(self, **kwargs): # Función para invocar tags
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
+    
+
+
+@method_decorator(login_required, name='dispatch')
+class MensajeDelete(DeleteView):
+    model = Mensajeria
+    success_url = "/AppProyecto1/inbox/"
     def get_context_data(self, **kwargs): # Función para invocar tags
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
