@@ -39,7 +39,7 @@
                         <div
                         class="card-header font-weight-bold">Mensaje enviado a <h4>{{mensaje.receptor}}</h4>
                         <p class="card-subtitle">Enviado el {{mensaje.created_at}}</p></div>
-                        <div class="card-body"><h8 class="card-title">{{mensaje.contenido}}</h8></div>
+                        <div class="card-body"><h8 class="card-title">{{mensaje.contenido|safe}}</h8></div>
                         <a class="btn btn-outline-danger btn-sm" href="{% url 'EliminarMensaje' mensaje.id %}">Borrar mensaje</a>
                     </div>
                 </div>
