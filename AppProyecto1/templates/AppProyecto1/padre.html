@@ -36,8 +36,7 @@
                 {% endif %}
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <!-- <li class="nav-item"><a class="nav-link active" href="#">Home</a></li> -->
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Inicio' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Inicio' %}">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'BlogList' %}">Blogs</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'TagList' %}">Etiquetas</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'About' %}">Acerca de...</a></li>
@@ -79,7 +78,7 @@
                     <div class="card mb-4">
                         <div class="card-header">Usuario/a</div>
                         {% if not request.user.is_authenticated %}
-                            <div class="card-body">Para acceder al contenido de este página, debes registrarte e iniciar sesión.</div>
+                            <div class="card-body">Para acceder al contenido de este página, debes <a href="{% url 'Register' %}">registrarte</a> e <a href="{% url 'Login' %}">iniciar sesión</a>.</div>
                         {% else %}
                             <div class="card-body">¡Bienvenido/a a este blog {{ user.username }}!</div>
                             {% if user|has_group:'Admin' %}

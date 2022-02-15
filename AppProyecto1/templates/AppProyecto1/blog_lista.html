@@ -17,12 +17,13 @@
                 {% if blog.imagen %}
                 <a href="{% url 'BlogDetail' blog.id %}"><img class="card-img-top" src="{{blog.imagen.url}}" alt="..." /></a>
                 {% else %}
-                <a href="{% url 'BlogDetail' blog.id %}"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                <a href="{% url 'BlogDetail' blog.id %}"><img class="card-img-top" src="https://dummyimage.com/700x350/606060/fff.jpg&text=(post+sin+imagen)" alt="..." /></a>
                 {% endif %}
 
                 <div class="card-body">
                     <h2 class="card-title h4" href="{% url 'BlogDetail' blog.id %}">{{blog.title}}</h2>
                     <p class="card-text italic">{{blog.subtitle}}</p>
+                    <p class="card-text italic"><i>Creado por {{blog.autor}} el {{blog.fechaCreacion}}</i></p>
                     
                     <div class="dropdown show">
                         <a class="btn dropdown-toggle btn-sm btn-info" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones</a>
@@ -34,9 +35,7 @@
                             <a class="dropdown-item" href="{% url 'BlogEdit' blog.id %}">Editar</a>
                             <a class="dropdown-item" href="{% url 'BlogDelete' blog.id %}">Eliminar</a>
                             {% else %}
-                            <a class="dropdown-item font-italic">
-                                
-                            </a>
+                            <a class="dropdown-item">(Necesitas tener permisos de administrador para editar)</a>
                             {% endif %}
 
                         </div>
