@@ -302,7 +302,7 @@ def inboxview(request):
 class MensajeCreate (CreateView):
     model= Mensajeria
     success_url="/AppProyecto1/inbox/"
-    fields = ["receptor","contenido","created_at"]
+    fields = ["receptor","contenido"]
 
     def form_valid(self, form):
         form.instance.remitente = self.request.user
