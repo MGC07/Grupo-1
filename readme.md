@@ -28,7 +28,7 @@ git clone <https://github.com/MGC07/Grupo-1.git>
 
 Se dividio el trabajo sobre los temas que mas nos sentiamos seguros en desarrollar, creamos diferentes ramas para trabajar en paralelo.
 
-Maria Florencia Mendoza--trabajo sobre los modelos y formularios
+Maria Florencia Mendoza-- login/logout, Perfiles, Avatar, grupos Admin y Usuarios, permisos.
 
 Martin Bonnefoy Valdés -- Herencias HTML, aspectos visuales, implementación de navbar y sidebar, sistemas de búsqueda (cuadro de búsqueda y según tags), sistema de mensajería.
 
