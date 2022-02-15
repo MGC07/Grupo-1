@@ -32,7 +32,7 @@ Maria Florencia Mendoza-- login/logout, register, Perfiles, Avatar, grupos Admin
 
 Martin Bonnefoy Valdés -- Herencias HTML, aspectos visuales, implementación de navbar y sidebar, sistemas de búsqueda (cuadro de búsqueda y según tags), sistema de mensajería.
 
-Maria Guadalupe Casas --Alta Github , buscar en formularios y Readme
+Maria Guadalupe Casas --Alta Github , buscar en formularios, crear en el modelo de blog Fecha de Creacion/fecha de Publicacion/Autor, chekeditor, unit-test  y Readme
 
 ##### Informacion de los contenidos dentro de las URLS
 
