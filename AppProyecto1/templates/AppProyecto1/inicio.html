@@ -6,11 +6,20 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <!-- <div class="text-center"> -->
-                <p>¡Bienvenido/a a este blog {{ user.username }}!</p>
-                <img height="100px" src="{{url}}">
-                <p>Si quieres acceder al código fuente de él, puedes clickear <a href="https://github.com/MGC07/Grupo-1">aquí</a>.</p>
-            <!-- </div> -->
+
+            {% if request.user.is_authenticated %}
+            
+            <p>¡Bienvenido/a a este blog {{ user.username }}!</p>
+            <img height="100px" src="{{url}}">
+            <p>Si quieres acceder al código fuente de él, puedes clickear <a href="https://github.com/MGC07/Grupo-1">aquí</a>.</p>
+
+            {% elif confirmacion %}
+                <p>¡El usuario se creó con éxito! ahora puedes <a href="{% url 'Login' %}">iniciar sesión</a>.</p>
+
+            {% else %}
+                <p>¡El usuario ingresado no existe! intenta denuevo <a href="{% url 'Login' %}">iniciado sesión</a> o <a href="{% url 'Register' %}">registrándote</a></p>.
+
+            {% endif %}
         </div>
     </div>
 </div>

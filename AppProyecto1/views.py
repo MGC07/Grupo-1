@@ -25,7 +25,6 @@ def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request,data = request.POST)
         
-
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -57,7 +56,8 @@ def register(request):
             user = User.objects.get(username=informacion['username'])
             my_group = Group.objects.get(name='Users') 
             my_group.user_set.add(user)
-            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado","tags":tags})
+            confirmacionregister = True
+            return render(request,"AppProyecto1/inicio.html",{"mensaje":"Usuario creado","tags":tags,"confirmacion":confirmacionregister})
 
     else:
         form = UserRegisterForm()
