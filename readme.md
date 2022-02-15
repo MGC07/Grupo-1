@@ -21,6 +21,8 @@ Para poder replicar el proyecto debera tener instalado:
 
 Python 3.9.5
 Django 4.0
+django-CKeditor
+Pillow
 Tener acceso a Github
 Para mas detalle como instalar las mismas, se dejan los siguientes links
 
@@ -46,10 +48,14 @@ Para ejecutar el proyecto, es necesario realizar los siguientes comandos:
 ```
 python manage.py migrate
 python manage.py loaddata grupo.json
-python manage.py createsuperuser # El modelo Blog necesita de la existencia de una instancia del modelo Tag para funcionar, por lo que se hace necesario que un superuser genere un primer Tag a través del formulario de la página.
+python manage.py createsuperuser
 python manage.py runserver
-
 ```
+** Importante: El modelo Blog necesita de la existencia de una instancia del modelo Tag para funcionar, por lo que se hace necesario que un superuser genere un primer Tag a través del formulario de la página. **
+
+Un video que da cuenta de las distintas partes del funcionamiento de la página está disponible en [este link](https://drive.google.com/file/d/1JwGMh3I2OV3Akif0GS9iqV8_JWf0S3cq/view).
+
+
 #### Informacion sobre el desarrollo
 
 ##### Equipo de trabajo
@@ -85,3 +91,5 @@ Maria Guadalupe Casas --Alta Github , buscar en formularios, CRUD utilizando vis
 10. path('tagForm/',views.tagForm, name="TagForm")# Formulario para crear tags
 
 11. path('commentForm/',views.commentForm,name="CommentForm")# Formulario para Contacto
+  
+12. path('inbox/', views.inboxview, name = 'Inbox')# Sistema de mensajería.
