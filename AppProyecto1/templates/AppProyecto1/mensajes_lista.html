@@ -1,0 +1,60 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% load group %}
+{% block contenidoQueCambia %}
+
+<div class="container">
+    <div class="row">
+        <a class="btn btn-info btn-lg btn-block mb-4" href="{% url 'RedactarMensaje' %}">Enviar un mensaje nuevo</a>
+        
+        {% if inbox %}
+            <h2>Esta es una lista de mensajes que has recibido:</h2>
+            {% for mensaje in inbox %}
+            
+
+                <div class="col-4 mb-1">
+                    <div class="card mb-3">
+                        <div
+                        class="card-header font-weight-bold">Mensaje de <h4>{{mensaje.remitente}}</h4>
+                        <p class="card-subtitle">Recibido el {{mensaje.created_at}}</p></div>
+                        <div class="card-body"><h8 class="card-title">{{mensaje.contenido}}</h8></div>
+                        <a class="btn btn-outline-danger btn-sm" href="{% url 'EliminarMensaje' mensaje.id %}">Borrar mensaje</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+            <h2>No has recibido mensajes.</p>
+
+        {% endif %}
+
+        {% if enviados %}
+            <h2>Esta es una lista de mensajes que has enviado:</h2>
+        
+            {% for mensaje in enviados %}
+            
+                <div class="col-4 mb-1">
+                    <div class="card mb-3">
+                        <div
+                        class="card-header font-weight-bold">Mensaje enviado a <h4>{{mensaje.receptor}}</h4>
+                        <p class="card-subtitle">Enviado el {{mensaje.created_at}}</p></div>
+                        <div class="card-body"><h8 class="card-title">{{mensaje.contenido}}</h8></div>
+                        <a class="btn btn-outline-danger btn-sm" href="{% url 'EliminarMensaje' mensaje.id %}">Borrar mensaje</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+            <h2>No has enviado mensajes.</p>
+
+        {% endif %}
+
+
+                        
+    </div>
+</div>
+
+
+{% endblock contenidoQueCambia %}

@@ -1,0 +1,15 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+{% block contenidoQueCambia %}
+<form method="Post" enctype="multipart/form-data">{% csrf_token %}    
+    <table>
+        
+        {{form.as_p}}
+        {{form.media}}
+        
+
+    </table>
+    <input type="submit" value="Enviar">
+
+</form>
+{% endblock contenidoQueCambia %}
