@@ -64,7 +64,7 @@ python manage.py loaddata grupo.json
 python manage.py createsuperuser
 python manage.py runserver
 ```
-** Importante: El modelo Blog necesita de la existencia de una instancia del modelo Tag para funcionar, por lo que se hace necesario que un superuser genere un primer Tag a través del formulario de la página. **
+_Importante: El modelo Blog necesita de la existencia de una instancia del modelo Tag para funcionar, por lo que se hace necesario que un superuser genere un primer Tag a través del formulario de la página._
 
 Un video que da cuenta de las distintas partes del funcionamiento de la página está disponible en [este link](https://drive.google.com/file/d/1JwGMh3I2OV3Akif0GS9iqV8_JWf0S3cq/view).
 
