@@ -1,0 +1,18 @@
+{% extends 'AppProyecto1/padre.html' %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+
+            <h4>¡La página que buscas no existe!</h4>
+            <p><i>Si crees que esto es un error, te recomendamos contactar a los <a href="{% url 'About' %}">administradores</a>.</i></p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock contenidoQueCambia %}
+

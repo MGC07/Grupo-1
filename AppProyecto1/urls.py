@@ -4,7 +4,6 @@ from django.urls.conf import include
 from AppProyecto1 import views
 from django.contrib.auth.views import LogoutView
 
-
 urlpatterns = [
     path('',views.inicio,name="Inicio"),
 
@@ -36,4 +35,8 @@ urlpatterns = [
     path('inbox/', views.inboxview, name = 'Inbox'),
     path('eliminarmensaje/<pk>/', views.MensajeDelete.as_view(), name = 'EliminarMensaje')
 
+
+
 ]
+
+handler404 = "AppProyecto1.views.page_not_found_view"

@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from django.template import RequestContext
 from AppProyecto1.models import Avatar,Blog, Mensajeria, Tag, Comment
 from AppProyecto1.forms import BlogForm, TagForm, CommentForm, UserRegisterForm, UserEditForm, AvatarForm
 from django.views.generic.edit import UpdateView, CreateView,DeleteView
@@ -317,3 +318,6 @@ class MensajeDelete(DeleteView):
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         return context
+
+def page_not_found_view(request, exception):
+    return render(request, '404.html', status=404)
