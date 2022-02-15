@@ -2,24 +2,31 @@
 
 ##### Proyecto
 
-Generar la estrucutura de un Blog utilizando lo aprendido en clase a traves de la herraminta de Django
+Generar la estrucutura de un Blog utilizando lo aprendido en clase a traves de la herraminta de Django.
 
 ##### Estado del proyecto
 
-En desarrollo, en esta primer etapa se encuentra desarrollado los siguientes conceptos:
-Herencia
+Finalizado en su primera etapa, en la que se desarrollaron los siguientes conceptos:
+
+Herencia HTML
 Modelos
 Formularios
-Buscar en un Formulario
+Búsqueda por formulario
+Sistema de mensajería
 
 ##### Requisitos del entorno
 
 Para poder replicar el proyecto debera tener instalado:
+
 Windows 10
 Python 3.10.1
+
 Django 4.0
+
 Tener acceso a Github
+
 Para mas detalle como instalar las mismas, se dejan los siguientes links
+
 <https://www.python.org>
 <https://www.djangoproject.com>
 <https://github.com>
