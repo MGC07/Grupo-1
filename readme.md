@@ -13,13 +13,13 @@ Modelos
 Formularios
 Búsqueda por formulario
 Sistema de mensajería
+Edición de texto avanzada con CKEditor
 
 ##### Requisitos del entorno
 
 Para poder replicar el proyecto debera tener instalado:
 
-Windows 10
-Python 3.10.1
+Python 3.9.5
 
 Django 4.0
 
@@ -28,12 +28,31 @@ Tener acceso a Github
 Para mas detalle como instalar las mismas, se dejan los siguientes links
 
 <https://www.python.org>
+
 <https://www.djangoproject.com>
+
 <https://github.com>
+
 Para descargar el proyecto debera clonar el mismo ingresando el siguiente comando
+
+'''
+
 git clone <https://github.com/MGC07/Grupo-1.git>
+
 pip install django=4.0
+
+pip install django-ckeditor
+
+pip install pillow
+
+'''
+
+##### Ejecución del proyecto
+
+Para ejecutar el proyecto, es necesario realizar los siguientes comandos:
+
 python manage.py runserver
+
 En el browser: http://localhost:8000/
 
 #### Informacion sobre el desarrollo
