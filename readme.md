@@ -26,7 +26,6 @@ Para mas detalle como instalar las mismas, se dejan los siguientes links
 Para descargar el proyecto debera clonar el mismo ingresando el siguiente comando
 git clone <https://github.com/MGC07/Grupo-1.git>
 pip install django=4.0
-cd<AppProyecto1>
 python manage.py runserver
 En el browser: http://localhost:8000/
 
