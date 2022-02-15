@@ -20,11 +20,8 @@ Edición de texto avanzada con CKEditor
 Para poder replicar el proyecto debera tener instalado:
 
 Python 3.9.5
-
 Django 4.0
-
 Tener acceso a Github
-
 Para mas detalle como instalar las mismas, se dejan los siguientes links
 
 <https://www.python.org>
