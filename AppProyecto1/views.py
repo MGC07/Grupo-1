@@ -124,8 +124,8 @@ def avatarForm(request):
                     descripcion=informacion['descripcion'],
                     link=informacion['link']
                     )
-            avatar.save()
-            return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar})
+            avatar[0].save()
+            return render(request,"AppProyecto1/verPerfil.html",{"user":user, "avatar":avatar[0]})
     else:
         if avatar:
             myAvatarForm = AvatarForm(
